@@ -14,11 +14,13 @@ from xlwt import Workbook
 
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 ## ============================================================================================================================================
 ## function defined to extract the data in xls format
-def xls_extract(data):
+def xls_extract(data, file, base_file_name):
+    # print(base_file_name)
+
     # Workbook is created
     wb = Workbook()
 
@@ -83,8 +85,22 @@ def xls_extract(data):
             relation.write(0, 5, 'Cardinality')
             relation.write(cnt1, 5, t['toCardinality'])
 
+    dir_name = os.path.dirname(file)
+    # print(dir_name)
+
+    ## saving to dataset folder
+    new_dir = pathlib.Path(dir_name, "EXCEL Output")
+    # print(new_dir)
+    new_dir.mkdir(parents=True, exist_ok=True)
+    # You have to make a file inside the new directory
+    file_name = base_file_name + ".xls"
+
+    ## saving the data in json format
+    save1 = str(new_dir) + "\\" + file_name
+    # print(save1)
+
     ## saving the excel workbook file
-    wb.save('Details.xls')
+    wb.save(save1)
 
 ## ============================================================================================================================================
 ## function defined to extract the data in json format
@@ -93,7 +109,7 @@ def json_extract(file):
     dir_name = os.path.dirname(file)
 
     ## getting file base name
-    file_name = Path(file).stem
+    base_file_name = Path(file).stem
 
     x = list(file)
     x[-1] = 't'
@@ -110,10 +126,10 @@ def json_extract(file):
     # print(json.dumps(json_object, indent=3))
 
     ## saving to dataset folder
-    new_dir = pathlib.Path(dir_name, "Output")
+    new_dir = pathlib.Path(dir_name, "JSON Output")
     new_dir.mkdir(parents=True, exist_ok=True)
     # You have to make a file inside the new directory
-    file_name += ".json"
+    file_name = base_file_name + ".json"
 
     ## saving the data in json format
     save1 = str(new_dir) + "\\" + file_name
@@ -127,7 +143,7 @@ def json_extract(file):
 
     out_file.close()
 
-    xls_extract(data)
+    xls_extract(data, file, base_file_name)
 
 ## --------------------------------------------------------------- MAIN -------------------------------------------------------------------------
 ## printing the menu
@@ -139,12 +155,12 @@ op = int(input("\nEnter Option : "))
 if(op==1):
     # opening file dialog to select file
     file = filedialog.askopenfilename(title="Select file")
-    print(file)
+    # print(file)
     json_extract(file)
 else:
     ## opening file dialog to select folder
     folder = askdirectory(title="Select folder")
-    print(folder)
+    # print(folder)
 
     # # Change the directory
     # os.chdir(folder)
@@ -159,7 +175,7 @@ else:
         if f.endswith('.pbix'):
             # Create the filepath of particular file
             file_path = f"{folder}/{f}"
-            print(file_path)
+            # print(file_path)
             # read_files(file_path)
             json_extract(file_path)
 
