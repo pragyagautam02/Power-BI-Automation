@@ -14,7 +14,7 @@ from xlwt import Workbook
 
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 ## ============================================================================================================================================
 ## function defined to extract the data in xls format
@@ -49,7 +49,8 @@ def xls_extract(data, file, base_file_name):
     source = wb.add_sheet('Source Information')
     source.write(0, 0, 'Table No.')
     source.write(0, 1, 'Table Name')
-    source.write(0, 2, 'Source')
+    source.write(0, 2, 'Table Type')
+    source.write(0, 3, 'Table Source')
     for t in data['model']['tables']:
         if 'partitions' in t:
             list_partitions = t['partitions']
@@ -58,9 +59,22 @@ def xls_extract(data, file, base_file_name):
                 name = list_partitions[0]['name'].split('-')[0]
                 i += 1
                 p = List_source[1]
+                Ttype = p.split("(")[0].split('= ')[1]
+
+                st = 0
+                ed = len(p)-1
+                while(p[st]!='"'):
+                    st += 1
+                while(p[ed]!='"'):
+                    ed -= 1
+                # print(st, ed)
+                TSource = p[st : ed+1]
+
+
                 source.write(i, 0, i)
                 source.write(i, 1, name)
-                source.write(i, 2, p)
+                source.write(i, 2, Ttype)
+                source.write(i, 3, TSource)
 
     ## ----------------------------------------------------- RELATIOPNSHIPS ----------------------------------------------------------------------
     relation = wb.add_sheet('Relationships')
@@ -157,7 +171,7 @@ if(op==1):
     file = filedialog.askopenfilename(title="Select file")
     # print(file)
     json_extract(file)
-else:
+elif(op==2):
     ## opening file dialog to select folder
     folder = askdirectory(title="Select folder")
     # print(folder)
@@ -178,5 +192,7 @@ else:
             # print(file_path)
             # read_files(file_path)
             json_extract(file_path)
+else:
+    print("Invalid Input")
 
 
