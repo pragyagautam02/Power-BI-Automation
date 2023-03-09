@@ -1,0 +1,418 @@
+{
+      "name": "a1980cfa-c497-4133-9c1c-41a52a0d6026",
+      "compatibilityLevel": 1550,
+      "model": {
+            "culture": "en-US",
+            "dataAccessOptions": {
+                  "legacyRedirects": true,
+                  "returnErrorValuesAsNull": true
+            },
+            "defaultPowerBIDataSourceVersion": "powerBI_V3",
+            "sourceQueryCulture": "en-US",
+            "tables": [
+                  {
+                        "name": "Query1",
+                        "lineageTag": "662ff764-ccce-4b63-bbbe-c35d832b8585",
+                        "columns": [
+                              {
+                                    "type": "rowNumber",
+                                    "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+                                    "dataType": "int64",
+                                    "isHidden": true,
+                                    "isUnique": true,
+                                    "isKey": true,
+                                    "isNullable": false,
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    }
+                              },
+                              {
+                                    "name": "DepartmentName",
+                                    "dataType": "string",
+                                    "sourceColumn": "DepartmentName",
+                                    "lineageTag": "3cc0280a-0b0d-446a-bacc-f29d365581f0",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "EmployeeName",
+                                    "dataType": "string",
+                                    "sourceColumn": "EmployeeName",
+                                    "lineageTag": "1ef02807-cc67-451f-8c3e-09e181521a6c",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "VacationDays",
+                                    "dataType": "double",
+                                    "sourceColumn": "VacationDays",
+                                    "lineageTag": "c9dbf318-d241-4ab7-a30a-4d611727773b",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          },
+                                          {
+                                                "name": "PBI_FormatHint",
+                                                "value": "{\"isGeneralNumber\":true}"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "SickLeaveDays",
+                                    "dataType": "double",
+                                    "sourceColumn": "SickLeaveDays",
+                                    "lineageTag": "8734215a-34b1-4eb5-ba69-7dc3e52f3053",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          },
+                                          {
+                                                "name": "PBI_FormatHint",
+                                                "value": "{\"isGeneralNumber\":true}"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "partitions": [
+                              {
+                                    "name": "Query1-7f7abd07-126e-452a-a836-69acb37b0ea2",
+                                    "mode": "import",
+                                    "state": "ready",
+                                    "source": {
+                                          "type": "m",
+                                          "expression": [
+                                                "let",
+                                                "    Source = Sql.Database(\"MAQN0366\\SQLEXPRESS\", \"AdventureWorks2012\", [Query=\"SELECT [FirstName],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [MiddleName],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [LastName],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [Gender],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [VacationHours],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [SickLeaveHours],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [MaritalStatus],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [Department].[Name],#(lf)\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0\ua0c2\uc200\u00a0 [City]#(lf)FROM [AdventureWorks2012].[Person].[Person]#(lf)INNER JOIN [AdventureWorks2012].[HumanResources].[Employee] ON [Person].[BusinessEntityID] = [Employee].[BusinessEntityID]#(lf)INNER JOIN [AdventureWorks2012].[HumanResources].[EmployeeDepartmentHistory] ON [Employee].[BusinessEntityID] = [EmployeeDepartmentHistory].[BusinessEntityID]#(lf)INNER JOIN [AdventureWorks2012].[HumanResources].[Department] ON [EmployeeDepartmentHistory].[DepartmentID] = [Department].[DepartmentID]#(lf)INNER JOIN [AdventureWorks2012].[Person].[BusinessEntityAddress] ON [Person].[BusinessEntityID] = [BusinessEntityAddress].[BusinessEntityID]#(lf)INNER JOIN [AdventureWorks2012].[Person].[Address] ON [BusinessEntityAddress].[AddressID] = [Address].[AddressID]#(lf)WHERE [MiddleName] IS NOT NULL;\"]),",
+                                                "    #\"Inserted Merged Column\" = Table.AddColumn(Source, \"EmployeeName\", each Text.Combine({[FirstName], [MiddleName], [LastName]}, \" \"), type text),",
+                                                "    #\"Reordered Columns\" = Table.ReorderColumns(#\"Inserted Merged Column\",{\"EmployeeName\", \"FirstName\", \"MiddleName\", \"LastName\", \"Gender\", \"VacationHours\", \"SickLeaveHours\", \"MaritalStatus\", \"Name\", \"City\"}),",
+                                                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Reordered Columns\",{\"FirstName\", \"MiddleName\", \"LastName\", \"Gender\", \"City\"}),",
+                                                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"Name\", \"DepartmentName\"}}),",
+                                                "    #\"Added Custom\" = Table.AddColumn(#\"Renamed Columns\", \"VacationDays\", each [VacationHours] / 8),",
+                                                "    #\"Added Custom1\" = Table.AddColumn(#\"Added Custom\", \"SickLeaveDays\", each [SickLeaveHours]/8),",
+                                                "    #\"Inserted Round Up\" = Table.AddColumn(#\"Added Custom1\", \"Round Up\", each Number.RoundUp([VacationDays]), Int64.Type),",
+                                                "    #\"Removed Columns1\" = Table.RemoveColumns(#\"Inserted Round Up\",{\"Round Up\"}),",
+                                                "    #\"Rounded Off\" = Table.TransformColumns(#\"Removed Columns1\",{{\"VacationDays\", each Number.Round(_, 2), type number}}),",
+                                                "    #\"Rounded Off1\" = Table.TransformColumns(#\"Rounded Off\",{{\"SickLeaveDays\", each Number.Round(_, 2), type number}}),",
+                                                "    #\"Removed Columns2\" = Table.RemoveColumns(#\"Rounded Off1\",{\"VacationHours\", \"SickLeaveHours\"}),",
+                                                "    #\"Reordered Columns1\" = Table.ReorderColumns(#\"Removed Columns2\",{\"EmployeeName\", \"DepartmentName\", \"VacationDays\", \"SickLeaveDays\", \"MaritalStatus\"}),",
+                                                "    #\"Removed Columns3\" = Table.RemoveColumns(#\"Reordered Columns1\",{\"MaritalStatus\"})",
+                                                "in",
+                                                "    #\"Removed Columns3\""
+                                          ]
+                                    }
+                              }
+                        ],
+                        "annotations": [
+                              {
+                                    "name": "PBI_ResultType",
+                                    "value": "Table"
+                              },
+                              {
+                                    "name": "PBI_NavigationStepName",
+                                    "value": "Navigation"
+                              }
+                        ]
+                  },
+                  {
+                        "name": "DateTableTemplate_6d2e3f31-c660-44fb-aae2-f274e7c229e2",
+                        "isHidden": true,
+                        "isPrivate": true,
+                        "lineageTag": "b290b1f0-0647-4109-9490-42a1e0f37725",
+                        "columns": [
+                              {
+                                    "type": "rowNumber",
+                                    "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+                                    "dataType": "int64",
+                                    "isHidden": true,
+                                    "isUnique": true,
+                                    "isKey": true,
+                                    "isNullable": false,
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    }
+                              },
+                              {
+                                    "type": "calculatedTableColumn",
+                                    "name": "Date",
+                                    "dataType": "dateTime",
+                                    "isNameInferred": true,
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "sourceColumn": "[Date]",
+                                    "lineageTag": "09f6c097-f21e-4c48-963d-eae5d8f43a3c",
+                                    "dataCategory": "PaddedDateTableDates",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Year",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "YEAR([Date])",
+                                    "lineageTag": "87abfd5f-e0b2-4aed-be62-b696c91ddf63",
+                                    "dataCategory": "Years",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Year"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "MonthNo",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "MONTH([Date])",
+                                    "lineageTag": "7ac439e3-3cf7-4bc6-998a-ac25c9e14655",
+                                    "dataCategory": "MonthOfYear",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "MonthNumber"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Month",
+                                    "dataType": "string",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "FORMAT([Date], \"MMMM\")",
+                                    "sortByColumn": "MonthNo",
+                                    "lineageTag": "2c51b48a-20df-48a1-a5ef-9f759fb4a1dd",
+                                    "dataCategory": "Months",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Month"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "QuarterNo",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "INT(([MonthNo] + 2) / 3)",
+                                    "lineageTag": "dd176af7-b054-4284-8192-8f222a378dfc",
+                                    "dataCategory": "QuarterOfYear",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "QuarterNumber"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Quarter",
+                                    "dataType": "string",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "\"Qtr \" & [QuarterNo]",
+                                    "sortByColumn": "QuarterNo",
+                                    "lineageTag": "c52271ab-14c4-4df2-abdc-96a08135ef12",
+                                    "dataCategory": "Quarters",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Quarter"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Day",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "DAY([Date])",
+                                    "lineageTag": "3949c52a-14f3-4728-83d6-0facaa2aec62",
+                                    "dataCategory": "DayOfMonth",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Day"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "partitions": [
+                              {
+                                    "name": "DateTableTemplate_6d2e3f31-c660-44fb-aae2-f274e7c229e2-dded5aaa-3a3e-4a20-90a8-24d72a7daf48",
+                                    "mode": "import",
+                                    "state": "ready",
+                                    "source": {
+                                          "type": "calculated",
+                                          "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))"
+                                    }
+                              }
+                        ],
+                        "hierarchies": [
+                              {
+                                    "name": "Date Hierarchy",
+                                    "lineageTag": "88ea9243-a823-4b29-a1a7-d0ce2deec717",
+                                    "state": "ready",
+                                    "levels": [
+                                          {
+                                                "name": "Year",
+                                                "ordinal": 0,
+                                                "column": "Year",
+                                                "lineageTag": "c9816337-5604-4194-abb3-41ea9c494c67"
+                                          },
+                                          {
+                                                "name": "Quarter",
+                                                "ordinal": 1,
+                                                "column": "Quarter",
+                                                "lineageTag": "2c1c0efe-c606-4925-b819-ebd28ec29d3b"
+                                          },
+                                          {
+                                                "name": "Month",
+                                                "ordinal": 2,
+                                                "column": "Month",
+                                                "lineageTag": "a7b5cc4c-a626-4a48-8b85-9ab59482bebc"
+                                          },
+                                          {
+                                                "name": "Day",
+                                                "ordinal": 3,
+                                                "column": "Day",
+                                                "lineageTag": "1ece5354-cc13-4245-9df7-fb873c624dab"
+                                          }
+                                    ],
+                                    "annotations": [
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "DateHierarchy"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "annotations": [
+                              {
+                                    "name": "__PBI_TemplateDateTable",
+                                    "value": "true"
+                              },
+                              {
+                                    "name": "DefaultItem",
+                                    "value": "DateHierarchy"
+                              }
+                        ]
+                  }
+            ],
+            "cultures": [
+                  {
+                        "name": "en-US",
+                        "linguisticMetadata": {
+                              "content": {
+                                    "Version": "1.0.0",
+                                    "Language": "en-US",
+                                    "DynamicImprovement": "HighConfidence"
+                              },
+                              "contentType": "json"
+                        }
+                  }
+            ],
+            "annotations": [
+                  {
+                        "name": "PBI_QueryOrder",
+                        "value": "[\"Query1\"]"
+                  },
+                  {
+                        "name": "__PBI_TimeIntelligenceEnabled",
+                        "value": "1"
+                  },
+                  {
+                        "name": "PBIDesktopVersion",
+                        "value": "2.114.864.0 (23.02)"
+                  }
+            ]
+      }
+}

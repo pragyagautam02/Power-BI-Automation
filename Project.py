@@ -17,7 +17,7 @@ from xlwt import Pattern
 
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 ## ============================================================================================================================================
 ## function defined to extract the data in xls format
@@ -39,7 +39,7 @@ def xls_extract(data, file, base_file_name):
         if 'measures' in t:
             list_measures = t['measures']
             for i in list_measures:
-                prompt = "Explain the following calculation in a few sentences in simple business terms without using DAX function names: " + i['expression']
+                prompt = "Explain the following calculation in a few sentences in simple business terms without using DAX function names: " + str(i['expression'])
                 completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=64)
                 cnt += 1
                 Measures.write(cnt, 0, i['name'])
@@ -86,24 +86,47 @@ def xls_extract(data, file, base_file_name):
     relation.write(0, 2, 'To Table')
     relation.write(0, 3, 'To Column')
     relation.write(0, 4, 'State')
+    relation.write(0, 5, 'Direction')
+    relation.write(0, 6, 'Cardinality')
     cnt1 = 0
 
-    for t in data['model']['relationships']:
-        if "joinOnDateBehavior" not in t:
-            cnt1 += 1
-            relation.write(cnt1, 0, t['fromTable'])
-            relation.write(cnt1, 1, t['fromColumn'])
-            relation.write(cnt1, 2, t['toTable'])
-            relation.write(cnt1, 3, t['toColumn'])
-            relation.write(cnt1, 4, t['state'])
-        if "crossFilteringBehavior" in t:
-            relation.write(0, 5, 'Direction')
-            relation.write(cnt1, 5, t['crossFilteringBehavior'])
+    # try:
+    if 'relationships' in data['model']:
+        for t in data['model']['relationships']:
+            if "joinOnDateBehavior" not in t:
+                cnt1 += 1
+                relation.write(cnt1, 0, t['fromTable'])
+                relation.write(cnt1, 1, t['fromColumn'])
+                relation.write(cnt1, 2, t['toTable'])
+                relation.write(cnt1, 3, t['toColumn'])
+                relation.write(cnt1, 4, t['state'])
 
-        if "toCardinality" in t:
-            relation.write(0, 6, 'Cardinality')
-            relation.write(cnt1, 6, t['toCardinality'])
+                if "crossFilteringBehavior" in t:
+                    relation.write(cnt1, 5, "Both Directional")
+                else:
+                    relation.write(cnt1, 5, "Single Directional")
 
+                if "toCardinality" in t:
+                    if t['toCardinality'] == "one":
+                        relation.write(cnt1, 6, 'One to one (1:1)')
+                    elif t['toCardinality'] == "many":
+                        relation.write(cnt1, 6, 'Many to many (*:*)')
+                    else:
+                        pass
+
+                elif "fromCardinality" in t:
+                    if t['fromCardinality'] == "one":
+                        relation.write(cnt1, 6, 'One to one (1:1)')
+                    elif t['fromCardinality'] == "many":
+                        relation.write(cnt1, 6, 'Many to many (*:*)')
+                    else:
+                        pass
+                else:
+                    relation.write(cnt1, 6, 'Many to one (*:1)')
+    else:
+        print("NO relation")
+    # except:
+    #     print("No Relation")
     dir_name = os.path.dirname(file)
     # print(dir_name)
 
@@ -199,6 +222,7 @@ elif(op==2):
         if f.endswith('.pbix'):
             # Create the filepath of particular file
             file_path = f"{folder}/{f}"
+            # print(file_path)
             # print(file_path)
             # read_files(file_path)
             json_extract(file_path)

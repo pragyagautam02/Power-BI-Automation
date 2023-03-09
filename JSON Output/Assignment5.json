@@ -1,0 +1,679 @@
+{
+      "name": "26e60132-bddf-4e0a-aa39-c0b1bfa34ce9",
+      "compatibilityLevel": 1550,
+      "model": {
+            "culture": "en-US",
+            "dataAccessOptions": {
+                  "legacyRedirects": true,
+                  "returnErrorValuesAsNull": true
+            },
+            "defaultPowerBIDataSourceVersion": "powerBI_V3",
+            "sourceQueryCulture": "en-US",
+            "tables": [
+                  {
+                        "name": "LiteracyTable",
+                        "lineageTag": "0556f9ab-3a50-4d28-8261-1328ed107369",
+                        "columns": [
+                              {
+                                    "type": "rowNumber",
+                                    "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+                                    "dataType": "int64",
+                                    "isHidden": true,
+                                    "isUnique": true,
+                                    "isKey": true,
+                                    "isNullable": false,
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    }
+                              },
+                              {
+                                    "name": "State Code",
+                                    "dataType": "int64",
+                                    "sourceColumn": "State Code",
+                                    "formatString": "0",
+                                    "lineageTag": "0b2aa089-4179-4334-ba87-b423a1dcfb7f",
+                                    "summarizeBy": "count",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "State",
+                                    "dataType": "string",
+                                    "sourceColumn": "State",
+                                    "lineageTag": "df2e78d1-6297-4012-b95e-2f7fcaa90bc0",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "District Code",
+                                    "dataType": "int64",
+                                    "sourceColumn": "District Code",
+                                    "formatString": "0",
+                                    "lineageTag": "b3997527-498c-4d1a-86bd-66ccbdab1536",
+                                    "summarizeBy": "count",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Level",
+                                    "dataType": "string",
+                                    "sourceColumn": "Level",
+                                    "lineageTag": "74a417dd-67ac-4f73-bc35-c877ca7ba4fd",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Population ",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Population ",
+                                    "formatString": "0",
+                                    "lineageTag": "918cd98a-22c4-49b1-ac50-f8684f02527c",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Population(Male)",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Population(Male)",
+                                    "formatString": "0",
+                                    "lineageTag": "7789f3f6-aff0-49de-89b6-8f353edeadbe",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Population(Female)",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Population(Female)",
+                                    "formatString": "0",
+                                    "lineageTag": "fcf52567-e0b5-4ca9-af45-bc5f88dcb193",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "0-6 Population",
+                                    "dataType": "int64",
+                                    "sourceColumn": "0-6 Population",
+                                    "formatString": "0",
+                                    "lineageTag": "73f20b1b-c6ef-48dc-96df-e4283e1c8dfc",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Literates",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Literates",
+                                    "formatString": "0",
+                                    "lineageTag": "1897ad17-bb21-4e98-ab22-9036b47ce30d",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Literates(Male)",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Literates(Male)",
+                                    "formatString": "0",
+                                    "lineageTag": "1c1a3f6a-3d8d-4fb9-baa3-2538dddfa833",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Literates(Female)",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Literates(Female)",
+                                    "formatString": "0",
+                                    "lineageTag": "668de09f-fda0-40dd-9de6-25f8623138fb",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Sex Ratio",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Sex Ratio",
+                                    "formatString": "0",
+                                    "lineageTag": "9f27455b-b880-412b-8e44-366227211857",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Child Sex Ratio (0-6 Years",
+                                    "dataType": "int64",
+                                    "sourceColumn": "Child Sex Ratio (0-6 Years",
+                                    "formatString": "0",
+                                    "lineageTag": "b1aac52c-2c19-492d-9f09-1fd9275cdcd6",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Effective Literacy Rate (7+ Pop)",
+                                    "dataType": "double",
+                                    "sourceColumn": "Effective Literacy Rate (7+ Pop)",
+                                    "lineageTag": "eabec6a2-3fb7-4522-9994-b2f6f54688e1",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          },
+                                          {
+                                                "name": "PBI_FormatHint",
+                                                "value": "{\"isGeneralNumber\":true}"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Literacy Rate(Male)",
+                                    "dataType": "double",
+                                    "sourceColumn": "Literacy Rate(Male)",
+                                    "lineageTag": "3f079f96-b4f4-4fc2-9282-e31dbb5951c7",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          },
+                                          {
+                                                "name": "PBI_FormatHint",
+                                                "value": "{\"isGeneralNumber\":true}"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Literacy Rate (Female)",
+                                    "dataType": "double",
+                                    "sourceColumn": "Literacy Rate (Female)",
+                                    "lineageTag": "adbf94cf-97cd-40da-a2b2-8ae08cbf850c",
+                                    "summarizeBy": "sum",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          },
+                                          {
+                                                "name": "PBI_FormatHint",
+                                                "value": "{\"isGeneralNumber\":true}"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "City",
+                                    "dataType": "string",
+                                    "sourceColumn": "City",
+                                    "lineageTag": "ecaafbfa-9f6f-450c-8f6d-92f4f45fb5c0",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "partitions": [
+                              {
+                                    "name": "LiteracyTable-c049af87-276e-49e0-ae67-9c2cc67539e3",
+                                    "mode": "import",
+                                    "state": "ready",
+                                    "source": {
+                                          "type": "m",
+                                          "expression": [
+                                                "let",
+                                                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\MAQ\\Downloads\\Problem Set 5\\Problem Set 5\\Problem Set 5\\Literacy.xlsx\"), null, true),",
+                                                "    LiteracyTable_Table = Source{[Item=\"LiteracyTable\",Kind=\"Table\"]}[Data],",
+                                                "    #\"Changed Type\" = Table.TransformColumnTypes(LiteracyTable_Table,{{\"State Code\", Int64.Type}, {\"State Name\", type text}, {\"District Code\", Int64.Type}, {\"Name of Urban Agglomeration/City\", type text}, {\"Level\", type text}, {\"Population \", Int64.Type}, {\"Population(Male)\", Int64.Type}, {\"Population(Female)\", Int64.Type}, {\"0-6 Population\", Int64.Type}, {\"Literates\", Int64.Type}, {\"Literates(Male)\", Int64.Type}, {\"Literates(Female)\", Int64.Type}, {\"Sex Ratio\", Int64.Type}, {\"Child Sex Ratio (0-6 Years\", Int64.Type}, {\"Effective Literacy Rate (7+ Pop)\", type number}, {\"Literacy Rate(Male)\", type number}, {\"Literacy Rate (Female)\", type number}}),",
+                                                "    #\"Replaced Errors\" = Table.ReplaceErrorValues(#\"Changed Type\", {{\"State Code\", 33}}),",
+                                                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Replaced Errors\",{{\"Name of Urban Agglomeration/City\", \"City\"}}),",
+                                                "    #\"Split Column by Delimiter\" = Table.SplitColumn(#\"Renamed Columns\", \"City\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"City.1\", \"City.2\"}),",
+                                                "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Split Column by Delimiter\",{{\"City.1\", type text}, {\"City.2\", type text}}),",
+                                                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"City.2\"}),",
+                                                "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns\",{{\"City.1\", \"City\"}, {\"State Name\", \"State\"}})",
+                                                "in",
+                                                "    #\"Renamed Columns1\""
+                                          ]
+                                    }
+                              }
+                        ],
+                        "measures": [
+                              {
+                                    "name": "Number of States",
+                                    "expression": "DISTINCTCOUNT(LiteracyTable[State])",
+                                    "formatString": "0",
+                                    "lineageTag": "783001f6-b374-4462-97a0-0557cdfff5ae",
+                                    "dataType": "int64"
+                              },
+                              {
+                                    "name": "Number of Cities",
+                                    "expression": "COUNTAX(FILTER(LiteracyTable, 'LiteracyTable'[Level] = \"City\"), [City])",
+                                    "formatString": "0",
+                                    "lineageTag": "e4d3a8b6-359f-4906-8928-4dbb10ce15b2",
+                                    "dataType": "int64"
+                              },
+                              {
+                                    "name": "Number of UA",
+                                    "expression": "COUNTAX(FILTER(LiteracyTable, 'LiteracyTable'[Level] = \"UA\"), [City])",
+                                    "formatString": "0",
+                                    "lineageTag": "4dea3ee7-2786-43b5-9501-3c4352c0d692",
+                                    "dataType": "int64"
+                              }
+                        ],
+                        "hierarchies": [
+                              {
+                                    "name": "State Hierarchy",
+                                    "lineageTag": "1827927b-7018-47a8-884a-96b27721831a",
+                                    "levels": [
+                                          {
+                                                "name": "State",
+                                                "ordinal": 0,
+                                                "column": "State",
+                                                "lineageTag": "e905a352-b697-44ad-af5d-b35f1a28140d"
+                                          },
+                                          {
+                                                "name": "City",
+                                                "ordinal": 1,
+                                                "column": "City",
+                                                "lineageTag": "e4124b43-69c0-4b9e-93d4-e1b3db395986"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "annotations": [
+                              {
+                                    "name": "PBI_ResultType",
+                                    "value": "Table"
+                              },
+                              {
+                                    "name": "PBI_NavigationStepName",
+                                    "value": "Navigation"
+                              }
+                        ]
+                  },
+                  {
+                        "name": "DateTableTemplate_d9d03c9e-e077-4f4d-992d-19a9d176c602",
+                        "isHidden": true,
+                        "isPrivate": true,
+                        "lineageTag": "6517f49b-ea6b-4b5e-b374-cbed75dca70e",
+                        "columns": [
+                              {
+                                    "type": "rowNumber",
+                                    "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
+                                    "dataType": "int64",
+                                    "isHidden": true,
+                                    "isUnique": true,
+                                    "isKey": true,
+                                    "isNullable": false,
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    }
+                              },
+                              {
+                                    "type": "calculatedTableColumn",
+                                    "name": "Date",
+                                    "dataType": "dateTime",
+                                    "isNameInferred": true,
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "sourceColumn": "[Date]",
+                                    "lineageTag": "10eb2fd1-1b7d-4325-bd70-d5462287b2ed",
+                                    "dataCategory": "PaddedDateTableDates",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Year",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "YEAR([Date])",
+                                    "lineageTag": "e0c9ba9f-dfd1-4c17-a989-3b61aa623163",
+                                    "dataCategory": "Years",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Year"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "MonthNo",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "MONTH([Date])",
+                                    "lineageTag": "6546a001-97d5-4eb4-9f01-2ac5174af25c",
+                                    "dataCategory": "MonthOfYear",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "MonthNumber"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Month",
+                                    "dataType": "string",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "FORMAT([Date], \"MMMM\")",
+                                    "sortByColumn": "MonthNo",
+                                    "lineageTag": "d1745c01-1ba6-4164-9d59-c6b4c9670f3d",
+                                    "dataCategory": "Months",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Month"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "QuarterNo",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "INT(([MonthNo] + 2) / 3)",
+                                    "lineageTag": "9e902364-6ce4-4c2a-8a18-55d8384c6bd9",
+                                    "dataCategory": "QuarterOfYear",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "QuarterNumber"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Quarter",
+                                    "dataType": "string",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "\"Qtr \" & [QuarterNo]",
+                                    "sortByColumn": "QuarterNo",
+                                    "lineageTag": "d8b616dd-aaf2-43cc-94c8-bced92cca3f5",
+                                    "dataCategory": "Quarters",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Quarter"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "type": "calculated",
+                                    "name": "Day",
+                                    "dataType": "int64",
+                                    "isDataTypeInferred": true,
+                                    "isHidden": true,
+                                    "expression": "DAY([Date])",
+                                    "lineageTag": "df668f8e-7aa0-47e5-a294-3aa432bffc90",
+                                    "dataCategory": "DayOfMonth",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "User"
+                                          },
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "Day"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "partitions": [
+                              {
+                                    "name": "DateTableTemplate_d9d03c9e-e077-4f4d-992d-19a9d176c602-8f2219fc-ce43-4977-9a00-682de6106e7f",
+                                    "mode": "import",
+                                    "state": "ready",
+                                    "source": {
+                                          "type": "calculated",
+                                          "expression": "Calendar(Date(2015,1,1), Date(2015,1,1))"
+                                    }
+                              }
+                        ],
+                        "hierarchies": [
+                              {
+                                    "name": "Date Hierarchy",
+                                    "lineageTag": "f634e5fe-6ca5-4b1b-ab6c-9112690d3075",
+                                    "state": "ready",
+                                    "levels": [
+                                          {
+                                                "name": "Year",
+                                                "ordinal": 0,
+                                                "column": "Year",
+                                                "lineageTag": "7b499649-1c57-4884-972c-74383e4b4a1f"
+                                          },
+                                          {
+                                                "name": "Quarter",
+                                                "ordinal": 1,
+                                                "column": "Quarter",
+                                                "lineageTag": "897ae12f-b592-426d-a428-285bd7821f75"
+                                          },
+                                          {
+                                                "name": "Month",
+                                                "ordinal": 2,
+                                                "column": "Month",
+                                                "lineageTag": "c85f8aeb-5c52-40f0-be33-f7e1daad413c"
+                                          },
+                                          {
+                                                "name": "Day",
+                                                "ordinal": 3,
+                                                "column": "Day",
+                                                "lineageTag": "86aab0a2-f659-4b9f-bfbe-ab1306f785e6"
+                                          }
+                                    ],
+                                    "annotations": [
+                                          {
+                                                "name": "TemplateId",
+                                                "value": "DateHierarchy"
+                                          }
+                                    ]
+                              }
+                        ],
+                        "annotations": [
+                              {
+                                    "name": "__PBI_TemplateDateTable",
+                                    "value": "true"
+                              },
+                              {
+                                    "name": "DefaultItem",
+                                    "value": "DateHierarchy"
+                              }
+                        ]
+                  }
+            ],
+            "cultures": [
+                  {
+                        "name": "en-US",
+                        "linguisticMetadata": {
+                              "content": {
+                                    "Version": "1.0.0",
+                                    "Language": "en-US",
+                                    "DynamicImprovement": "HighConfidence"
+                              },
+                              "contentType": "json"
+                        }
+                  }
+            ],
+            "annotations": [
+                  {
+                        "name": "PBI_QueryOrder",
+                        "value": "[\"LiteracyTable\"]"
+                  },
+                  {
+                        "name": "__PBI_TimeIntelligenceEnabled",
+                        "value": "1"
+                  },
+                  {
+                        "name": "PBIDesktopVersion",
+                        "value": "2.114.864.0 (23.02)"
+                  }
+            ]
+      }
+}
