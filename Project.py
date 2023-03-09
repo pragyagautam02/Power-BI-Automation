@@ -11,10 +11,13 @@ from tkinter import filedialog
 from tkinter.filedialog import askdirectory
 import xlwt
 from xlwt import Workbook
+import xlrd
+import pandas as pd
+from xlwt import Pattern
 
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 ## ============================================================================================================================================
 ## function defined to extract the data in xls format
@@ -82,6 +85,7 @@ def xls_extract(data, file, base_file_name):
     relation.write(0, 1, 'From Column')
     relation.write(0, 2, 'To Table')
     relation.write(0, 3, 'To Column')
+    relation.write(0, 4, 'State')
     cnt1 = 0
 
     for t in data['model']['relationships']:
@@ -91,13 +95,14 @@ def xls_extract(data, file, base_file_name):
             relation.write(cnt1, 1, t['fromColumn'])
             relation.write(cnt1, 2, t['toTable'])
             relation.write(cnt1, 3, t['toColumn'])
+            relation.write(cnt1, 4, t['state'])
         if "crossFilteringBehavior" in t:
-            relation.write(0, 4, 'Direction')
-            relation.write(cnt1, 4, t['crossFilteringBehavior'])
+            relation.write(0, 5, 'Direction')
+            relation.write(cnt1, 5, t['crossFilteringBehavior'])
 
         if "toCardinality" in t:
-            relation.write(0, 5, 'Cardinality')
-            relation.write(cnt1, 5, t['toCardinality'])
+            relation.write(0, 6, 'Cardinality')
+            relation.write(cnt1, 6, t['toCardinality'])
 
     dir_name = os.path.dirname(file)
     # print(dir_name)
@@ -112,6 +117,11 @@ def xls_extract(data, file, base_file_name):
     ## saving the data in json format
     save1 = str(new_dir) + "\\" + file_name
     # print(save1)
+
+    # df = pd.read_excel(save1, header=None)
+    # df.to_excel('Akash.xlsx', index=False, header=False)
+    # wb.save('Akash.xlsx')
+
 
     ## saving the excel workbook file
     wb.save(save1)
