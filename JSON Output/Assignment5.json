@@ -353,7 +353,7 @@
                                     "formatString": "0",
                                     "lineageTag": "783001f6-b374-4462-97a0-0557cdfff5ae",
                                     "dataType": "int64",
-                                    "description": "The DISTINCTCOUNT function in DAX counts the number of distinct states in the LiteracyTable. This provides a count of the total number of distinct states present in the table."
+                                    "description": "DISTINCTCOUNT(LiteracyTable[State]): This calculation is counting the distinct number of states in the LiteracyTable. This calculation is useful for finding out how many different states have literacy data available in this table."
                               },
                               {
                                     "name": "Number of Cities",
@@ -361,7 +361,7 @@
                                     "formatString": "0",
                                     "lineageTag": "e4d3a8b6-359f-4906-8928-4dbb10ce15b2",
                                     "dataType": "int64",
-                                    "description": "This calculation is counting the number of unique cities from the LiteracyTable table that have a value in their Level column of \"City\". It is ignoring any row from the table that does not have \"City\" in the Level column."
+                                    "description": "The calculation counts the number of cities in the LiteracyTable. It filters the table based on the Level column being equal to City, and then counts the distinct entries in the City column."
                               },
                               {
                                     "name": "Number of UA",
@@ -369,7 +369,7 @@
                                     "formatString": "0",
                                     "lineageTag": "4dea3ee7-2786-43b5-9501-3c4352c0d692",
                                     "dataType": "int64",
-                                    "description": "This calculation counts how many cities have a literacy level of \"UA\" in the LiteracyTable. It filters the table to only show rows with Literacy Level of \"UA\" and then count how many cities appear in that filtered table."
+                                    "description": "This calculation counts the number of records in the LiteracyTable table in which the Level column is equal to \"UA\" and the City column contains a value. In other words, it's a way to count the number of cities with a literacy rate at the \"UA\" level."
                               }
                         ],
                         "hierarchies": [

@@ -201,7 +201,7 @@
                                     "formatString": "0",
                                     "lineageTag": "bbe8aded-6018-43b6-b4b9-1af4593f98b6",
                                     "dataType": "int64",
-                                    "description": "This calculation is counting the Employee IDs of a data set where the First Result is 'Completed'. If there are no Employee IDs with the First Result of 'Completed', the calculation will return 0. Otherwise, it will return the number of Employee IDs it counted."
+                                    "description": "This calculation will count the number of Employee ID values in the LDP Summary table where the First Result equals \"Completed\". If no Employee IDs have a First Result of \"Completed\", then the calculation will return 0, otherwise, it will return the count of Employee ID values."
                               },
                               {
                                     "name": "Rank",
@@ -209,7 +209,7 @@
                                     "formatString": "0",
                                     "lineageTag": "36daf705-7daf-4fe7-99cf-91290575c748",
                                     "dataType": "int64",
-                                    "description": "This calculation ranks each employee by the total number of specialization courses they have completed, in descending order. 'LDP Summary' is the table of data, containing the employee IDs and names, and the number of specialization courses completed by each employee. The CROSSJOIN function is used to create a Cartesian"
+                                    "description": "This calculation ranks the 'LDP Summary' table by the number of specializations completed, showing the Employee ID and their Name with their corresponding number of specializations completed in descending order. The ALL function is used to ensure that all rows and columns in the 'LDP Summary' table are considered, even if"
                               },
                               {
                                     "name": "CompletedSpecialized",
@@ -217,7 +217,7 @@
                                     "formatString": "0",
                                     "lineageTag": "a3f77f57-956b-470a-8619-7a1a32cce547",
                                     "dataType": "int64",
-                                    "description": "This calculation counts the number of rows in the 'LDP Summary' table where the value in the 'First Result' column is equal to 'Completed'. This number can be used to help determine the success rate of process completions."
+                                    "description": "This calculation is used to count the number of rows in the 'LDP Summary' table whose 'First Result' column contains the value \"Completed\"."
                               },
                               {
                                     "name": "Rank of Project Managers",
@@ -225,7 +225,7 @@
                                     "formatString": "0",
                                     "lineageTag": "bc657d83-f9b7-4a86-adc6-00a7a510efb6",
                                     "dataType": "int64",
-                                    "description": "This calculation finds the ranking of project managers based on the number of specialization completed. It sorts data in descending order and assigns a rank to each project manager in the list. It ignores blank values, when assigning the ranks."
+                                    "description": "This calculation ranks all project managers from the table named \"LDP Summary\" in descending order based on the total number of specializations completed by each manager. The ranking is done using a \"dense\" ranking, meaning there are no gaps in the list of rankings, such as a \"3\" ranking immediately"
                               }
                         ],
                         "annotations": [

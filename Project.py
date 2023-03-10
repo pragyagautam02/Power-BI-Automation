@@ -21,7 +21,7 @@ from xlwt import Pattern
 import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 ## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ def xls_extract(data, file, base_file_name, json_path):
     source = wb.create_sheet('Source Information')
     i = 0
     if 'tables' in data['model']:
-        source.append(['Table No', 'Table Name', 'Table Type', 'Table Source', 'Table Query', 'Modification'])
+        source.append(['Table No', 'Table Name', 'Table Type', 'Table Source','Original Table Name', 'Table Query', 'Modification'])
 
         for t in data['model']['tables']:
             if 'partitions' in t:
@@ -112,6 +112,23 @@ def xls_extract(data, file, base_file_name, json_path):
                     else:
                         TSource = List_source[2]
 
+                    otname = ""
+                    if "Query=" in p:
+                        otname = p.split("FROM")[1].split("#")[0]
+                        # print(TName)
+                    elif "Sql." in p:
+                        otname = List_source[2].split("=")[0].strip()
+                        # print(TName)
+                    elif "Excel." in p:
+                        otname = List_source[2].split("=")[0].strip()
+                        # print(TName)
+                    elif "Dataflows" in p:
+                        otname = List_source[5].split("=")[0].split("\"")[1].strip()
+                        # print(TName)
+                    else:
+                        otname = name
+                    # print(otname)
+
                     TQuery = ""
                     if "Query=" in p:
                         TQuery = p.split("Query=")[1]
@@ -133,10 +150,10 @@ def xls_extract(data, file, base_file_name, json_path):
                             p1 = List_source[id].split("    ")[1]
                             Tmodification += str(pr) + ". " + p1 + '\n\n'
                             pr += 1
-                    source.append([i, name, Ttype, TSource, TQuery, Tmodification])
+                    source.append([i, name, Ttype, TSource, otname, TQuery, Tmodification])
 
         i += 1
-        table = Table(displayName="Source", ref="A1:F" + str(i))
+        table = Table(displayName="Source", ref="A1:G" + str(i))
         source.add_table(table)
 
         # Apply some style to the table
@@ -150,10 +167,11 @@ def xls_extract(data, file, base_file_name, json_path):
 
         source.column_dimensions["A"].width = 20
         source.column_dimensions["B"].width = 20
-        source.column_dimensions["C"].width = 20
-        source.column_dimensions["D"].width = 50
+        source.column_dimensions["C"].width = 30
+        source.column_dimensions["D"].width = 40
         source.column_dimensions["E"].width = 20
-        source.column_dimensions["F"].width = 80
+        source.column_dimensions["F"].width = 50
+        source.column_dimensions["G"].width = 80
     else:
         source.append(['No Source present in this file'])
         for column_cells in source.columns:
