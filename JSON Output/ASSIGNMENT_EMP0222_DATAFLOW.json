@@ -1,5 +1,5 @@
 {
-      "name": "650dbe69-1377-4812-9461-59faffe89f2a",
+      "name": "d8cb4bcd-1015-46a2-a5fb-25d873ae4fd6",
       "compatibilityLevel": 1550,
       "model": {
             "culture": "en-US",
@@ -8,11 +8,11 @@
                   "returnErrorValuesAsNull": true
             },
             "defaultPowerBIDataSourceVersion": "powerBI_V3",
-            "sourceQueryCulture": "en-US",
+            "sourceQueryCulture": "en-IN",
             "tables": [
                   {
-                        "name": "LDP Summary",
-                        "lineageTag": "16b8c622-c431-4852-a16a-838d8f6b2978",
+                        "name": "financials (2)",
+                        "lineageTag": "a31a0b22-c03d-4e88-bcef-2cfd42510c14",
                         "columns": [
                               {
                                     "type": "rowNumber",
@@ -27,10 +27,10 @@
                                     }
                               },
                               {
-                                    "name": "Name",
+                                    "name": "Segment",
                                     "dataType": "string",
-                                    "sourceColumn": "Name",
-                                    "lineageTag": "63bce6db-89fb-435e-ad45-393a11ca6e2e",
+                                    "sourceColumn": "Segment",
+                                    "lineageTag": "86ef4aba-4dde-4e56-bc25-2eb6c42fdd9e",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -43,10 +43,10 @@
                                     ]
                               },
                               {
-                                    "name": "Employee ID",
+                                    "name": "Country",
                                     "dataType": "string",
-                                    "sourceColumn": "Employee ID",
-                                    "lineageTag": "6b46159b-1fff-4013-bfa7-9f248d9e3856",
+                                    "sourceColumn": "Country",
+                                    "lineageTag": "05c282a2-8643-4ca4-a6e1-7dbe4b75bdf1",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -59,10 +59,10 @@
                                     ]
                               },
                               {
-                                    "name": "Project Manager",
+                                    "name": "Product",
                                     "dataType": "string",
-                                    "sourceColumn": "Project Manager",
-                                    "lineageTag": "e890da43-b468-40ea-bea5-8021d0194309",
+                                    "sourceColumn": "Product",
+                                    "lineageTag": "3dc39585-5528-4037-b130-ffbe46f6798e",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -75,10 +75,10 @@
                                     ]
                               },
                               {
-                                    "name": "Specialization Name",
+                                    "name": "Discount Band",
                                     "dataType": "string",
-                                    "sourceColumn": "Specialization Name",
-                                    "lineageTag": "b6e909d6-544d-4add-abcb-fc44df28c71b",
+                                    "sourceColumn": "Discount Band",
+                                    "lineageTag": "26f4ccbd-0472-4423-ac6a-006f05f39bc0",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -91,27 +91,10 @@
                                     ]
                               },
                               {
-                                    "name": "Completion Or Target Date",
-                                    "dataType": "int64",
-                                    "sourceColumn": "Completion Or Target Date",
-                                    "formatString": "0",
-                                    "lineageTag": "acdbd8fd-eb68-4254-8e08-13e2e958b6d2",
-                                    "summarizeBy": "sum",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Is LDP Goal",
+                                    "name": "Units Sold",
                                     "dataType": "string",
-                                    "sourceColumn": "Is LDP Goal",
-                                    "lineageTag": "ce8efcf9-bed0-4c08-95b7-79b1a8b48eff",
+                                    "sourceColumn": "Units Sold",
+                                    "lineageTag": "588edec8-4eef-4c4a-ab33-3b6e54e87a89",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -124,10 +107,10 @@
                                     ]
                               },
                               {
-                                    "name": "LDP Completion Risk",
+                                    "name": "Manufacturing Price",
                                     "dataType": "string",
-                                    "sourceColumn": "LDP Completion Risk",
-                                    "lineageTag": "261a1c52-615b-472a-b8ec-b10d69521ca0",
+                                    "sourceColumn": "Manufacturing Price",
+                                    "lineageTag": "8e9ae5eb-9ee8-4b94-a5b4-af02494a863d",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -140,10 +123,59 @@
                                     ]
                               },
                               {
-                                    "name": "SpecializationPercentage",
-                                    "dataType": "double",
-                                    "sourceColumn": "SpecializationPercentage",
-                                    "lineageTag": "48b765e3-7dc5-42e7-a07e-d962642f8dab",
+                                    "name": "Sale Price",
+                                    "dataType": "string",
+                                    "sourceColumn": "Sale Price",
+                                    "lineageTag": "81024e06-81b6-49ab-8aca-dfe546efaf57",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Gross Sales",
+                                    "dataType": "string",
+                                    "sourceColumn": "Gross Sales",
+                                    "lineageTag": "0dc2189d-bc79-4564-b91f-d01561723bff",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Discounts",
+                                    "dataType": "string",
+                                    "sourceColumn": "Discounts",
+                                    "lineageTag": "f52ea019-1c02-439c-a3d6-321edb3e38a9",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Sales",
+                                    "dataType": "decimal",
+                                    "sourceColumn": "Sales",
+                                    "formatString": "\"\u20b9\"\\ #,0.###############;#,0.###############\\ -\"\u20b9\";\"\u20b9\"\\ #,0.###############",
+                                    "lineageTag": "df34faee-18f1-4180-bd96-f2b9ed779a7c",
                                     "summarizeBy": "sum",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -155,15 +187,99 @@
                                           },
                                           {
                                                 "name": "PBI_FormatHint",
-                                                "value": "{\"isGeneralNumber\":true}"
+                                                "value": "{\"currencyCulture\":\"en-IN\"}"
+                                          },
+                                          {
+                                                "name": "PBI_ChangedProperties",
+                                                "value": "[\"DataType\"]"
                                           }
                                     ]
                               },
                               {
-                                    "name": "First Result",
+                                    "name": "COGS",
                                     "dataType": "string",
-                                    "sourceColumn": "First Result",
-                                    "lineageTag": "daef563d-a081-4894-96c2-2190a5afea1f",
+                                    "sourceColumn": "COGS",
+                                    "lineageTag": "7884fff6-d423-4488-b308-1b85b439e62a",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Profit",
+                                    "dataType": "string",
+                                    "sourceColumn": "Profit",
+                                    "lineageTag": "66a0c0d1-2f6e-4f00-bbf9-454629958d98",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Date",
+                                    "dataType": "string",
+                                    "sourceColumn": "Date",
+                                    "lineageTag": "f9bc4c8d-e112-4b1c-b635-80921fc4b909",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Month Number",
+                                    "dataType": "string",
+                                    "sourceColumn": "Month Number",
+                                    "lineageTag": "114b8d93-9fb6-421c-ad79-e4bd72fe3fd5",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Month Name",
+                                    "dataType": "string",
+                                    "sourceColumn": "Month Name",
+                                    "lineageTag": "0efea20a-83b8-47e4-acab-51a7d2e2a2f7",
+                                    "summarizeBy": "none",
+                                    "attributeHierarchy": {
+                                          "state": "ready"
+                                    },
+                                    "annotations": [
+                                          {
+                                                "name": "SummarizationSetBy",
+                                                "value": "Automatic"
+                                          }
+                                    ]
+                              },
+                              {
+                                    "name": "Year",
+                                    "dataType": "string",
+                                    "sourceColumn": "Year",
+                                    "lineageTag": "79d01440-4db2-4d7e-a030-86e66c113406",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
                                           "state": "ready"
@@ -178,72 +294,36 @@
                         ],
                         "partitions": [
                               {
-                                    "name": "LDP Summary-27341b44-4490-45d9-9fae-d8d2703aaae3",
+                                    "name": "financials (2)-4e45f853-4ef6-4ebf-a15c-c9ec659221e7",
                                     "mode": "import",
                                     "state": "ready",
                                     "source": {
                                           "type": "m",
                                           "expression": [
                                                 "let",
-                                                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\MAQ\\Desktop\\Pragya_EMPN0366\\LDP Summary.xlsx\"), null, true),",
-                                                "    Table1_Table = Source{[Item=\"Table1\",Kind=\"Table\"]}[Data],",
-                                                "    #\"Changed Type\" = Table.TransformColumnTypes(Table1_Table,{{\"Name\", type text}, {\"Employee ID\", type text}, {\"Project Manager\", type text}, {\"Specialization Name\", type text}, {\"Completion Or Target Date\", Int64.Type}, {\"Is LDP Goal\", type text}, {\"LDP Completion Risk\", type any}, {\"SpecializationPercentage\", type number}, {\"First Result\", type text}})",
+                                                "    Source = PowerPlatform.Dataflows(null),",
+                                                "    Workspaces = Source{[Id=\"Workspaces\"]}[Data],",
+                                                "    #\"616fac86-19ac-40a2-85bb-15d517e1076f\" = Workspaces{[workspaceId=\"616fac86-19ac-40a2-85bb-15d517e1076f\"]}[Data],",
+                                                "    #\"a025ea09-ff3a-40c4-9033-a14f69c30f0a\" = #\"616fac86-19ac-40a2-85bb-15d517e1076f\"{[dataflowId=\"a025ea09-ff3a-40c4-9033-a14f69c30f0a\"]}[Data],",
+                                                "    #\"financials (2)_\" = #\"a025ea09-ff3a-40c4-9033-a14f69c30f0a\"{[entity=\"financials (2)\",version=\"\"]}[Data]",
                                                 "in",
-                                                "    #\"Changed Type\""
+                                                "    #\"financials (2)_\""
                                           ]
                                     }
-                              }
-                        ],
-                        "measures": [
-                              {
-                                    "name": "No of Specialization Completed",
-                                    "expression": "VAR RES = COUNTAX(FILTER('LDP Summary', 'LDP Summary'[First Result]=\"Completed\"), 'LDP Summary'[Employee ID]) RETURN IF(RES = 0, 0, RES)",
-                                    "formatString": "0",
-                                    "lineageTag": "bbe8aded-6018-43b6-b4b9-1af4593f98b6",
-                                    "dataType": "int64",
-                                    "description": "This calculation is checking a table called 'LDP Summary' for any rows where the value in the 'First Result' column is equal to \"Completed\", and counting the number of 'Employee ID' occurrences in those rows. If there are no rows that satisfy this condition, it would return 0, otherwise"
-                              },
-                              {
-                                    "name": "Rank",
-                                    "expression": "RANKX(CROSSJOIN(ALL('LDP Summary'[Employee ID]),ALL('LDP Summary'[Name])),[No of Specialization Completed],,DESC)",
-                                    "formatString": "0",
-                                    "lineageTag": "36daf705-7daf-4fe7-99cf-91290575c748",
-                                    "dataType": "int64",
-                                    "description": "This calculation will produce a ranking of employees based on the number of specialization courses they have completed. It will first use the Crossjoin function to join all Employee ID's and Names from the 'LDP Summary' table. Then it will use the RANKX function to rank the employees based on the number of"
-                              },
-                              {
-                                    "name": "CompletedSpecialized",
-                                    "expression": "CALCULATE(COUNTROWS('LDP Summary'),'LDP Summary'[First Result] = \"Completed\")",
-                                    "formatString": "0",
-                                    "lineageTag": "a3f77f57-956b-470a-8619-7a1a32cce547",
-                                    "dataType": "int64",
-                                    "description": "This calculation is counting the total number of rows in a table called 'LDP Summary' where the field called 'First Result' has a value of \"Completed\"."
-                              },
-                              {
-                                    "name": "Rank of Project Managers",
-                                    "expression": "RANKX(ALL('LDP Summary'[Project Manager]),[No of Specialization Completed],,DESC,Dense)",
-                                    "formatString": "0",
-                                    "lineageTag": "bc657d83-f9b7-4a86-adc6-00a7a510efb6",
-                                    "dataType": "int64",
-                                    "description": "This calculation ranks all project managers according to the number of specializations completed in a descending order, with ties being given the same rank."
                               }
                         ],
                         "annotations": [
                               {
                                     "name": "PBI_ResultType",
                                     "value": "Table"
-                              },
-                              {
-                                    "name": "PBI_NavigationStepName",
-                                    "value": "Navigation"
                               }
                         ]
                   },
                   {
-                        "name": "DateTableTemplate_c9b73773-3c4d-4eac-a95d-c53901831fd4",
+                        "name": "DateTableTemplate_719a8e4d-13d5-4440-8122-32eeaac5d7ba",
                         "isHidden": true,
                         "isPrivate": true,
-                        "lineageTag": "099d4dde-0904-4a26-907a-92e448be0cf0",
+                        "lineageTag": "4bcfb67a-5140-42e4-b78e-b734df6f493c",
                         "columns": [
                               {
                                     "type": "rowNumber",
@@ -265,7 +345,8 @@
                                     "isDataTypeInferred": true,
                                     "isHidden": true,
                                     "sourceColumn": "[Date]",
-                                    "lineageTag": "750959d4-560f-45f4-9af2-78b336fccc85",
+                                    "formatString": "General Date",
+                                    "lineageTag": "a98fca74-a7d8-4430-a038-6820f182ff09",
                                     "dataCategory": "PaddedDateTableDates",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -285,7 +366,8 @@
                                     "isDataTypeInferred": true,
                                     "isHidden": true,
                                     "expression": "YEAR([Date])",
-                                    "lineageTag": "5bedf693-bd73-45e9-823d-457829513c83",
+                                    "formatString": "0",
+                                    "lineageTag": "1a80213b-4518-4e6e-a557-f2f68c7cd958",
                                     "dataCategory": "Years",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -309,7 +391,8 @@
                                     "isDataTypeInferred": true,
                                     "isHidden": true,
                                     "expression": "MONTH([Date])",
-                                    "lineageTag": "02c8604b-c37d-48f3-9b94-4028aeaa6082",
+                                    "formatString": "0",
+                                    "lineageTag": "b26f5a0d-9a48-4a30-abf6-4aaba2c8a599",
                                     "dataCategory": "MonthOfYear",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -334,7 +417,7 @@
                                     "isHidden": true,
                                     "expression": "FORMAT([Date], \"MMMM\")",
                                     "sortByColumn": "MonthNo",
-                                    "lineageTag": "337029c0-2e30-4cd7-9b60-884680a9a3c0",
+                                    "lineageTag": "fa39daeb-a8a9-4ded-8b74-552bb9b107ca",
                                     "dataCategory": "Months",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -358,7 +441,8 @@
                                     "isDataTypeInferred": true,
                                     "isHidden": true,
                                     "expression": "INT(([MonthNo] + 2) / 3)",
-                                    "lineageTag": "bf9be0a1-798b-460e-b9a9-befc46f9fc84",
+                                    "formatString": "0",
+                                    "lineageTag": "087f22d0-645f-40f6-925b-f39f56ba3df7",
                                     "dataCategory": "QuarterOfYear",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -383,7 +467,7 @@
                                     "isHidden": true,
                                     "expression": "\"Qtr \" & [QuarterNo]",
                                     "sortByColumn": "QuarterNo",
-                                    "lineageTag": "9a58c084-e0f9-4bb1-ac47-b5c59dd8bb45",
+                                    "lineageTag": "1c0078c8-fa5e-45d2-9c32-c0dae26713ae",
                                     "dataCategory": "Quarters",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -407,7 +491,8 @@
                                     "isDataTypeInferred": true,
                                     "isHidden": true,
                                     "expression": "DAY([Date])",
-                                    "lineageTag": "612675ae-1902-437a-bf8a-3e79862f8ff0",
+                                    "formatString": "0",
+                                    "lineageTag": "30e11e55-fd4b-490b-9966-d178dea71420",
                                     "dataCategory": "DayOfMonth",
                                     "summarizeBy": "none",
                                     "attributeHierarchy": {
@@ -427,7 +512,7 @@
                         ],
                         "partitions": [
                               {
-                                    "name": "DateTableTemplate_c9b73773-3c4d-4eac-a95d-c53901831fd4-0391844d-471d-446c-908b-b590b661d254",
+                                    "name": "DateTableTemplate_719a8e4d-13d5-4440-8122-32eeaac5d7ba-e99df3af-73df-411e-9629-62810bebdf25",
                                     "mode": "import",
                                     "state": "ready",
                                     "source": {
@@ -439,32 +524,32 @@
                         "hierarchies": [
                               {
                                     "name": "Date Hierarchy",
-                                    "lineageTag": "b8d762f0-6453-4e8c-9e60-4ef751ce9ad7",
+                                    "lineageTag": "67282694-829e-408e-ae36-bd327b435c60",
                                     "state": "ready",
                                     "levels": [
                                           {
                                                 "name": "Year",
                                                 "ordinal": 0,
                                                 "column": "Year",
-                                                "lineageTag": "6b48da57-1abb-40b3-b234-aff1c055f7fc"
+                                                "lineageTag": "b9c354a8-db7b-49ac-a001-5565fff8ac6e"
                                           },
                                           {
                                                 "name": "Quarter",
                                                 "ordinal": 1,
                                                 "column": "Quarter",
-                                                "lineageTag": "1f98cfa7-d3dc-43e0-b510-6f7652590b9a"
+                                                "lineageTag": "a6e519ca-ab3a-45e3-a2f7-5285e742c80f"
                                           },
                                           {
                                                 "name": "Month",
                                                 "ordinal": 2,
                                                 "column": "Month",
-                                                "lineageTag": "b88f6006-d68a-4bc3-8efa-81e789b53a9e"
+                                                "lineageTag": "25eea9f9-8ca7-4fd4-a964-99818e632ad2"
                                           },
                                           {
                                                 "name": "Day",
                                                 "ordinal": 3,
                                                 "column": "Day",
-                                                "lineageTag": "1e19dcd9-45b0-4c97-8bc8-d21916c2a3c2"
+                                                "lineageTag": "82754d85-5386-4cdd-a6c3-c52d4b2c3717"
                                           }
                                     ],
                                     "annotations": [
@@ -485,216 +570,6 @@
                                     "value": "DateHierarchy"
                               }
                         ]
-                  },
-                  {
-                        "name": "LDP Course Details",
-                        "lineageTag": "90a40d72-d355-4175-9465-22bfda991ca9",
-                        "columns": [
-                              {
-                                    "type": "rowNumber",
-                                    "name": "RowNumber-2662979B-1795-4F74-8F37-6A1BA8059B61",
-                                    "dataType": "int64",
-                                    "isHidden": true,
-                                    "isUnique": true,
-                                    "isKey": true,
-                                    "isNullable": false,
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    }
-                              },
-                              {
-                                    "name": "Employee ID",
-                                    "dataType": "string",
-                                    "sourceColumn": "Employee ID",
-                                    "lineageTag": "e4db2943-c435-4cf9-a789-c0f0133165ca",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Name",
-                                    "dataType": "string",
-                                    "sourceColumn": "Name",
-                                    "lineageTag": "12996fe5-9e9f-43be-8051-0687a971c501",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Specialization Name",
-                                    "dataType": "string",
-                                    "sourceColumn": "Specialization Name",
-                                    "lineageTag": "9f2a43b2-8db5-420d-a130-db7a9589a0ef",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Course Name",
-                                    "dataType": "string",
-                                    "sourceColumn": "Course Name",
-                                    "lineageTag": "bdeee2aa-1ce2-464d-b06f-d9361906eaff",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Result",
-                                    "dataType": "string",
-                                    "sourceColumn": "Result",
-                                    "lineageTag": "27755575-319c-4f55-9242-187237cade1c",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Sum of Percent",
-                                    "dataType": "double",
-                                    "sourceColumn": "Sum of Percent",
-                                    "lineageTag": "5c8d1d4f-a0f4-4e45-b327-c36102b8fc95",
-                                    "summarizeBy": "sum",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          },
-                                          {
-                                                "name": "PBI_FormatHint",
-                                                "value": "{\"isGeneralNumber\":true}"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Score",
-                                    "dataType": "string",
-                                    "sourceColumn": "Score",
-                                    "lineageTag": "6db16085-26ac-4d8e-9385-09a0a2d13f67",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Completion Date",
-                                    "dataType": "double",
-                                    "sourceColumn": "Completion Date",
-                                    "lineageTag": "90c61d9e-a6a6-4981-8c8f-631aaf6c92a7",
-                                    "summarizeBy": "sum",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          },
-                                          {
-                                                "name": "PBI_FormatHint",
-                                                "value": "{\"isGeneralNumber\":true}"
-                                          }
-                                    ]
-                              },
-                              {
-                                    "name": "Is LDP Goal",
-                                    "dataType": "string",
-                                    "sourceColumn": "Is LDP Goal",
-                                    "lineageTag": "3c4e6d3e-1ace-4602-b660-46a02607dc95",
-                                    "summarizeBy": "none",
-                                    "attributeHierarchy": {
-                                          "state": "ready"
-                                    },
-                                    "annotations": [
-                                          {
-                                                "name": "SummarizationSetBy",
-                                                "value": "Automatic"
-                                          }
-                                    ]
-                              }
-                        ],
-                        "partitions": [
-                              {
-                                    "name": "LDP Course Details-f035ff5c-149f-4dda-86bc-f38c8aebe216",
-                                    "mode": "import",
-                                    "state": "ready",
-                                    "source": {
-                                          "type": "m",
-                                          "expression": [
-                                                "let",
-                                                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\MAQ\\Desktop\\Pragya_EMPN0366\\LDP Course Details.xlsx\"), null, true),",
-                                                "    Table1_Table = Source{[Item=\"Table1\",Kind=\"Table\"]}[Data],",
-                                                "    #\"Changed Type\" = Table.TransformColumnTypes(Table1_Table,{{\"Employee ID\", type text}, {\"Name\", type text}, {\"Specialization Name\", type text}, {\"Course Name\", type text}, {\"Result\", type text}, {\"Sum of Percent\", type number}, {\"Score\", type text}, {\"Completion Date\", type number}, {\"Is LDP Goal\", type text}})",
-                                                "in",
-                                                "    #\"Changed Type\""
-                                          ]
-                                    }
-                              }
-                        ],
-                        "annotations": [
-                              {
-                                    "name": "PBI_ResultType",
-                                    "value": "Table"
-                              },
-                              {
-                                    "name": "PBI_ChangedProperties",
-                                    "value": "[\"Name\"]"
-                              }
-                        ]
-                  }
-            ],
-            "relationships": [
-                  {
-                        "name": "7a13d318-f5a1-4a0a-90f1-803fe642961f",
-                        "toCardinality": "many",
-                        "fromTable": "LDP Summary",
-                        "fromColumn": "Employee ID",
-                        "toTable": "LDP Course Details",
-                        "toColumn": "Employee ID",
-                        "crossFilteringBehavior": "bothDirections",
-                        "state": "ready"
                   }
             ],
             "cultures": [
@@ -713,7 +588,7 @@
             "annotations": [
                   {
                         "name": "PBI_QueryOrder",
-                        "value": "[\"LDP Summary\",\"LDP Course Details\"]"
+                        "value": "[\"financials (2)\"]"
                   },
                   {
                         "name": "__PBI_TimeIntelligenceEnabled",

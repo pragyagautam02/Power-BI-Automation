@@ -1,5 +1,10 @@
 ## imported necessary modules
+import openpyxl
+from openpyxl.worksheet.table import Table, TableStyleInfo
+from openpyxl.styles.alignment import Alignment
+import codecs
 import json
+import zipfile
 import pathlib
 from pathlib import Path
 from dax_extract import read_data_model_schema
@@ -11,134 +16,161 @@ from tkinter import filedialog
 from tkinter.filedialog import askdirectory
 import xlwt
 from xlwt import Workbook
-import xlrd
 import pandas as pd
 from xlwt import Pattern
-import openpyxl
-from openpyxl.worksheet.table import Table, TableStyleInfo
-
+import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
-## ============================================================================================================================================
-## function defined to extract the data in xls format
-def xls_extract(data, file, base_file_name):
-    # print(base_file_name)
 
-    # Workbook is created
-    # wb = Workbook()
-
-    # creating sheet for measures
-    # Measures = wb.add_sheet('Measures')
-    # Measures.write(0, 0, 'Measure Name')
-    # Measures.write(0, 1, 'Measure Expression')
-    # Measures.write(0, 2, 'Measure Description')
-
-    ## ----------------------------------------------------- MEASURES ----------------------------------------------------------------------
+## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
+def xls_extract(data, file, base_file_name, json_path):
+    ## MEASURES ----------------------------------------------------------------------
     wb = openpyxl.Workbook()
     ws = wb.create_sheet(title="Measures")
-    ws.append(['Measure Name', 'Measure Expression', 'Measure Description'])
+    # ws.append(['Measure Name','Measure Expression','Measure Data Type','Measure Description'])
     cnt = 1
     for t in data['model']['tables']:
         if 'measures' in t:
             list_measures = t['measures']
             for i in list_measures:
-                prompt = "Explain the following calculation in a few sentences in simple business terms without using DAX function names: " + i['expression']
+                prompt = "Explain the following calculation in a few sentences in simple business terms without using DAX function names: " + \
+                         i['expression']
                 completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=64)
+                #
+                # print(completion.choices[0]['text'].strip())
+                i['description'] = completion.choices[0]['text'].strip()
                 cnt += 1
-                ws.append([i['name'], i['expression'], completion.choices[0]['text'].strip()])
+                if (cnt == 2): ws.append(
+                    ['Measure Name', 'Measure Expression', 'Measure Data Type', 'Measure Description'])
+                ws.append([i['name'], i['expression'], i['dataType'], i['description']])
 
-    table = Table(displayName="Table1", ref="A1:C" + str(cnt))
-    ws.add_table(table)
+    with codecs.open(json_path, 'w', 'utf-16-le') as f:
+        json.dump(data, f, indent=4)
+    if (cnt >= 2):
+        table = Table(displayName="Table1", ref="A1:D" + str(cnt))
+        ws.add_table(table)
+        # Apply some style to the table
+        style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False, showLastColumn=False,
+                               showRowStripes=True, showColumnStripes=False)
+        table.tableStyleInfo = style
+        for col in ws.columns:
+            for cell in col:
+                cell.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True)
 
-    # cnt = 0
-    # for t in data['model']['tables']:
-    #     if 'measures' in t:
-    #         list_measures = t['measures']
-    #         for i in list_measures:
-    #             prompt = "Explain the following calculation in a few sentences in simple business terms without using DAX function names: " + str(i['expression'])
-    #             completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=64)
-    #             cnt += 1
-    #             Measures.write(cnt, 0, i['name'])
-    #             Measures.write(cnt, 1, i['expression'])
-    #             Measures.write(cnt, 2, completion.choices[0]['text'].strip())
+        ws.column_dimensions["A"].width = 20
+        ws.column_dimensions["B"].width = 30
+        ws.column_dimensions["C"].width = 30
+        ws.column_dimensions["D"].width = 50
+    else:
+        ws.append(['No measures present in this file'])
+        for column_cells in ws.columns:
+            max_length = 0
+            for cell in column_cells:
+                try:
+                    # Measure the length of the cell value
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+                adjusted_width = (
+                                             max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+                ws.column_dimensions[column_cells[0].column_letter].width = adjusted_width
 
-    ## ----------------------------------------------------- SOURCE INFORMATION ----------------------------------------------------------------------
-    # Apply some style to the table
-    style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False, showLastColumn=False, showRowStripes=True,
-                           showColumnStripes=False)
-    table.tableStyleInfo = style
+        # Wrap text in the cells
+        for cell in column_cells:
+            cell.alignment = openpyxl.styles.Alignment(wrap_text=True)
+
+    ## SOURCE INFORMATION ----------------------------------------------------------------------
     source = wb.create_sheet('Source Information')
-    source.append(['Table No', 'Table Name', 'Table Type', 'Table Source'])
     i = 0
-    for t in data['model']['tables']:
-        if 'partitions' in t:
-            list_partitions = t['partitions']
-            List_source = (list_partitions[0]['source']['expression'])
-            if List_source[0] == 'let':
-                name = list_partitions[0]['name'].split('-')[0]
-                i += 1
-                p = List_source[1]
-                Ttype = p.split("(")[0].split('= ')[1]
+    if 'tables' in data['model']:
+        source.append(['Table No', 'Table Name', 'Table Type', 'Table Source', 'Table Query', 'Modification'])
 
-                st = 0
-                ed = len(p) - 1
-                while (p[st] != '"'):
-                    st += 1
-                while (p[ed] != '"'):
-                    ed -= 1
-                # print(st, ed)
-                TSource = p[st: ed + 1]
-                source.append([i, name, Ttype, TSource])
+        for t in data['model']['tables']:
+            if 'partitions' in t:
+                list_partitions = t['partitions']
+                List_source = (list_partitions[0]['source']['expression'])
+                if List_source[0] == 'let':
+                    name = list_partitions[0]['name'].split('-')[0]
+                    i += 1
+                    p = List_source[1]
+                    # print(p)
+                    Ttype = p.split("(")[0].split('= ')[1]
 
-    i += 1
-    table = Table(displayName="Source", ref="A1:D" + str(i))
-    source.add_table(table)
+                    if '"' in p:
+                        st = 0
+                        ed = len(p) - 1
+                        while (p[st] != '"'):
+                            st += 1
+                        while (p[ed] != '"'):
+                            ed -= 1
 
-    # Apply some style to the table
-    style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False, showLastColumn=False, showRowStripes=True,
-                           showColumnStripes=False)
-    table.tableStyleInfo = style
+                        TSource = p[st: ed + 1]
+                        if "Query=" in TSource:
+                            TSource = TSource.split("[Query")[0]
+                    else:
+                        TSource = List_source[2]
 
-    # i = 0
-    # # creating sheet for source information
-    # source = wb.add_sheet('Source Information')
-    # source.write(0, 0, 'Table No.')
-    # source.write(0, 1, 'Table Name')
-    # source.write(0, 2, 'Table Type')
-    # source.write(0, 3, 'Table Source')
-    # for t in data['model']['tables']:
-    #     if 'partitions' in t:
-    #         list_partitions = t['partitions']
-    #         List_source = (list_partitions[0]['source']['expression'])
-    #         if List_source[0] == 'let':
-    #             name = list_partitions[0]['name'].split('-')[0]
-    #             i += 1
-    #             p = List_source[1]
-    #             Ttype = p.split("(")[0].split('= ')[1]
-    #
-    #             st = 0
-    #             ed = len(p)-1
-    #             while(p[st]!='"'):
-    #                 st += 1
-    #             while(p[ed]!='"'):
-    #                 ed -= 1
-    #             # print(st, ed)
-    #             TSource = p[st : ed+1]
-    #
-    #
-    #             source.write(i, 0, i)
-    #             source.write(i, 1, name)
-    #             source.write(i, 2, Ttype)
-    #             source.write(i, 3, TSource)
+                    TQuery = ""
+                    if "Query=" in p:
+                        TQuery = p.split("Query=")[1]
+                    else:
+                        TQuery = "No Query"
 
-    ## ----------------------------------------------------- RELATIOPNSHIPS ----------------------------------------------------------------------
+                    idx = 2
+                    for i1 in range(2, len(List_source)):
+                        if len(List_source[i1]) > 5 and List_source[i1][4] == '#':
+                            idx = i1
+                            break
+                    Tmodification = '\n\n'.join(List_source[idx:])
+                    source.append([i, name, Ttype, TSource, TQuery, Tmodification])
+
+        i += 1
+        table = Table(displayName="Source", ref="A1:F" + str(i))
+        source.add_table(table)
+
+        # Apply some style to the table
+        style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False, showLastColumn=False,
+                               showRowStripes=True, showColumnStripes=False)
+        table.tableStyleInfo = style
+
+        for col in source.columns:
+            for cell in col:
+                cell.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True)
+
+        source.column_dimensions["A"].width = 20
+        source.column_dimensions["B"].width = 20
+        source.column_dimensions["C"].width = 20
+        source.column_dimensions["D"].width = 50
+        source.column_dimensions["E"].width = 20
+        source.column_dimensions["F"].width = 80
+    else:
+        source.append(['No Source present in this file'])
+        for column_cells in source.columns:
+            max_length = 0
+            for cell in column_cells:
+                try:
+                    # Measure the length of the cell value
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+            adjusted_width = (
+                                         max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+            source.column_dimensions[column_cells[0].column_letter].width = adjusted_width
+
+            # Wrap text in the cells
+            for cell in column_cells:
+                cell.alignment = openpyxl.styles.Alignment(wrap_text=True)
+
+    ## RELATIOPNSHIPS ----------------------------------------------------------------------
     relation = wb.create_sheet('Relationships')
-    cnt1 = 0
-    relation.append(['From Table', 'From Column', 'To Table', 'To Column', 'State', 'Direction', 'Cardinality'])
-
     if 'relationships' in data['model']:
+        # relation=wb.create_sheet('Relationships')
+        cnt1 = 0
+        # relation.append(['From Table','From Column','To Table','To Column','State','Direction','Cardinality'])
         for t in data['model']['relationships']:
             d = ""
             a = ""
@@ -167,16 +199,67 @@ def xls_extract(data, file, base_file_name):
                 else:
                     a = 'Many to one (*:1)'
 
+                if (cnt1 == 1): relation.append(
+                    ['From Table', 'From Column', 'To Table', 'To Column', 'State', 'Direction', 'Cardinality'])
                 relation.append([t['fromTable'], t['fromColumn'], t['toTable'], t['toColumn'], t['state'], d, a])
+
+        if (cnt1 >= 1):
+            table = Table(displayName="Relationships", ref="A1:G" + str(cnt1 + 1))
+            relation.add_table(table)
+            style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False, showLastColumn=False,
+                                   showRowStripes=True, showColumnStripes=False)
+            table.tableStyleInfo = style
+
+            for col in relation.columns:
+                for cell in col:
+                    cell.alignment = Alignment(horizontal='left', vertical='top', wrap_text=True)
+
+            relation.column_dimensions["A"].width = 40
+            relation.column_dimensions["B"].width = 20
+            relation.column_dimensions["C"].width = 40
+            relation.column_dimensions["D"].width = 20
+            relation.column_dimensions["E"].width = 20
+            relation.column_dimensions["F"].width = 20
+            relation.column_dimensions["G"].width = 20
+
+        else:
+            relation.append(['No relationships present in this file'])
+            for column_cells in relation.columns:
+                max_length = 0
+                for cell in column_cells:
+                    try:
+                        # Measure the length of the cell value
+                        if len(str(cell.value)) > max_length:
+                            max_length = len(str(cell.value))
+                    except:
+                        pass
+                    adjusted_width = (
+                                                 max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+                    relation.column_dimensions[column_cells[0].column_letter].width = adjusted_width
+
+            # Wrap text in the cells
+            for cell in column_cells:
+                cell.alignment = openpyxl.styles.Alignment(wrap_text=True)
+
     else:
-        print('No Relation')
+        relation.append(['No relationships present in this file'])
+        for column_cells in relation.columns:
+            max_length = 0
+            for cell in column_cells:
+                try:
+                    # Measure the length of the cell value
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(str(cell.value))
+                except:
+                    pass
+            adjusted_width = (
+                                         max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+            relation.column_dimensions[column_cells[0].column_letter].width = adjusted_width
 
-    table = Table(displayName="Relationships", ref="A1:G" + str(cnt1 + 1))
-    relation.add_table(table)
+        # Wrap text in the cells
+        for cell in column_cells:
+            cell.alignment = openpyxl.styles.Alignment(wrap_text=True)
 
-    # Apply some style to the table
-    style = TableStyleInfo(name="TableStyleMedium9", showFirstColumn=False, showLastColumn=False, showRowStripes=True,showColumnStripes=False)
-    table.tableStyleInfo = style
     dir_name = os.path.dirname(file)
     new_dir = pathlib.Path(dir_name, "EXCEL Output")
     new_dir.mkdir(parents=True, exist_ok=True)
@@ -187,154 +270,94 @@ def xls_extract(data, file, base_file_name):
     sheet_to_remove = workbook['Sheet']
     workbook.remove(sheet_to_remove)
     workbook.save(save1)
-    #
-    # relation = wb.add_sheet('Relationships')
-    # relation.write(0, 0, 'From Table')
-    # relation.write(0, 1, 'From Column')
-    # relation.write(0, 2, 'To Table')
-    # relation.write(0, 3, 'To Column')
-    # relation.write(0, 4, 'State')
-    # relation.write(0, 5, 'Direction')
-    # relation.write(0, 6, 'Cardinality')
-    # cnt1 = 0
-    #
-    # # try:
-    # if 'relationships' in data['model']:
-    #     for t in data['model']['relationships']:
-    #         if "joinOnDateBehavior" not in t:
-    #             cnt1 += 1
-    #             relation.write(cnt1, 0, t['fromTable'])
-    #             relation.write(cnt1, 1, t['fromColumn'])
-    #             relation.write(cnt1, 2, t['toTable'])
-    #             relation.write(cnt1, 3, t['toColumn'])
-    #             relation.write(cnt1, 4, t['state'])
-    #
-    #             if "crossFilteringBehavior" in t:
-    #                 relation.write(cnt1, 5, "Both Directional")
-    #             else:
-    #                 relation.write(cnt1, 5, "Single Directional")
-    #
-    #             if "toCardinality" in t:
-    #                 if t['toCardinality'] == "one":
-    #                     relation.write(cnt1, 6, 'One to one (1:1)')
-    #                 elif t['toCardinality'] == "many":
-    #                     relation.write(cnt1, 6, 'Many to many (*:*)')
-    #                 else:
-    #                     pass
-    #
-    #             elif "fromCardinality" in t:
-    #                 if t['fromCardinality'] == "one":
-    #                     relation.write(cnt1, 6, 'One to one (1:1)')
-    #                 elif t['fromCardinality'] == "many":
-    #                     relation.write(cnt1, 6, 'Many to many (*:*)')
-    #                 else:
-    #                     pass
-    #             else:
-    #                 relation.write(cnt1, 6, 'Many to one (*:1)')
-    # else:
-    #     print("NO relation")
-    # # except:
-    # #     print("No Relation")
-    # dir_name = os.path.dirname(file)
-    # # print(dir_name)
-    #
-    # ## saving to dataset folder
-    # new_dir = pathlib.Path(dir_name, "EXCEL Output")
-    # # print(new_dir)
-    # new_dir.mkdir(parents=True, exist_ok=True)
-    # # You have to make a file inside the new directory
-    # file_name = base_file_name + ".xls"
-    #
-    # ## saving the data in json format
-    # save1 = str(new_dir) + "\\" + file_name
-    # # print(save1)
-    #
-    # # df = pd.read_excel(save1, header=None)
-    # # df.to_excel('Akash.xlsx', index=False, header=False)
-    # # wb.save('Akash.xlsx')
-    #
-    #
-    # ## saving the excel workbook file
-    # wb.save(save1)
+    print("Created :", file_name)
 
-## ============================================================================================================================================
-## function defined to extract the data in json format
+
+## function defined to extract the data in json format ---------------------------------------------------------------------------------------
 def json_extract(file):
-    ## getting the directory name
+    temp_dir = 'temp'
+    os.makedirs(temp_dir, exist_ok=True)
     dir_name = os.path.dirname(file)
-
-    ## getting file base name
     base_file_name = Path(file).stem
 
     x = list(file)
     x[-1] = 't'
     file = ''.join(x)
 
-    # taking path of pbit file
     pbit_path = Path(file)
+    with zipfile.ZipFile(pbit_path, 'r') as zip_ref:
+        zip_ref.extractall(temp_dir)
 
-    ## reading data in json format
-    data = read_data_model_schema(pbit_path)
-    # getting the datas in json format
-    # data_str = json.dumps(data)
-    # json_object = json.loads(data_str)
-    # print(json.dumps(json_object, indent=3))
+    # Load the data model schema JSON file
+    json_path = os.path.join(temp_dir, 'DataModelSchema')
+    with codecs.open(json_path, 'r', 'utf-16-le') as f:
+        contents = f.read()
 
-    ## saving to dataset folder
+    data = json.loads(contents)
+    # data = read_data_model_schema(pbit_path)
+
     new_dir = pathlib.Path(dir_name, "JSON Output")
     new_dir.mkdir(parents=True, exist_ok=True)
-    # You have to make a file inside the new directory
     file_name = base_file_name + ".json"
 
-    ## saving the data in json format
     save1 = str(new_dir) + "\\" + file_name
     out_file = open(Path(save1), "w")
 
     json.dump(data, out_file, indent=6)
-
-    ## saving file to current location of python file only
-    # save_path = dirname + "/" + file_name + ".json"
-    # Path(save_path).touch()
-
     out_file.close()
 
-    xls_extract(data, file, base_file_name)
+    xls_extract(data, file, base_file_name, json_path)
+    with codecs.open(json_path, 'r', 'utf-16-le') as f:
+        contents = f.read()
 
-## --------------------------------------------------------------- MAIN -------------------------------------------------------------------------
-## printing the menu
+    data = json.loads(contents)
+    # data = read_data_model_schema(pbit_path)
+
+    # new_dir = pathlib.Path(dir_name, "JSON Output")
+    # new_dir.mkdir(parents=True, exist_ok=True)
+    file_name = base_file_name + ".json"
+
+    save1 = str(new_dir) + "\\" + file_name
+    out_file = open(Path(save1), "w")
+
+    json.dump(data, out_file, indent=6)
+    out_file.close()
+    print("Created :", file_name)
+
+    dir_name = os.path.dirname(file)
+    new_dir = pathlib.Path(dir_name, "UPDATED pbit")
+    new_dir.mkdir(parents=True, exist_ok=True)
+
+    new_pbit_path = base_file_name + '_updated.pbit'
+    save1 = str(new_dir) + "\\" + new_pbit_path
+    print("Created :", new_pbit_path)
+    print()
+    with zipfile.ZipFile(save1, 'w', zipfile.ZIP_DEFLATED) as zip_ref:
+        for root, dirs, files in os.walk(temp_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                rel_path = os.path.relpath(file_path, temp_dir)
+                zip_ref.write(file_path, rel_path)
+
+    shutil.rmtree(temp_dir)
+
+
+## Main ----------------------------------------------------------------------------------------------------------------------------------------------------
 print("Do you want to select file or folder\n1.File\n2.Folder")
-
-## asking user for option
 op = int(input("\nEnter Option : "))
 
-if(op==1):
-    # opening file dialog to select file
+if (op == 1):
     file = filedialog.askopenfilename(title="Select file")
-    # print(file)
     json_extract(file)
-elif(op==2):
+elif (op == 2):
     ## opening file dialog to select folder
     folder = askdirectory(title="Select folder")
-    # print(folder)
-
-    # # Change the directory
-    # os.chdir(folder)
-
-    # def read_files(file_path):
-    #     with open(file_path, 'r') as file:
-    #         print(file.read())
-
-    # Iterate over all the files in the directory
-    for f in os.listdir():
+    for f in os.listdir(folder):
         ## searching for file with specific file extension
         if f.endswith('.pbix'):
+            print("Currently Processing {" + str(f) + "}...")
             # Create the filepath of particular file
             file_path = f"{folder}/{f}"
-            # print(file_path)
-            # print(file_path)
-            # read_files(file_path)
             json_extract(file_path)
 else:
     print("Invalid Input")
-
-

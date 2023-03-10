@@ -352,21 +352,24 @@
                                     "expression": "DISTINCTCOUNT(LiteracyTable[State])",
                                     "formatString": "0",
                                     "lineageTag": "783001f6-b374-4462-97a0-0557cdfff5ae",
-                                    "dataType": "int64"
+                                    "dataType": "int64",
+                                    "description": "DISTINCTCOUNT(LiteracyTable[State]) is a calculation used to determine the total number of unique states present in the LiteracyTable. It means that the DISTINCTCOUNT counts the different states, removing any duplicate states if present. This calculation is useful for providing an overview"
                               },
                               {
                                     "name": "Number of Cities",
                                     "expression": "COUNTAX(FILTER(LiteracyTable, 'LiteracyTable'[Level] = \"City\"), [City])",
                                     "formatString": "0",
                                     "lineageTag": "e4d3a8b6-359f-4906-8928-4dbb10ce15b2",
-                                    "dataType": "int64"
+                                    "dataType": "int64",
+                                    "description": "This calculation counts the total number of cities in the LiteracyTable that have a Level of \"City\". It accomplishes this by filtering the table to only include rows where the Level is equal to \"City\" and then counting the number of entries in the City column."
                               },
                               {
                                     "name": "Number of UA",
                                     "expression": "COUNTAX(FILTER(LiteracyTable, 'LiteracyTable'[Level] = \"UA\"), [City])",
                                     "formatString": "0",
                                     "lineageTag": "4dea3ee7-2786-43b5-9501-3c4352c0d692",
-                                    "dataType": "int64"
+                                    "dataType": "int64",
+                                    "description": "This calculation counts how many cities there are in the LiteracyTable where the Level is equal to 'UA'. It will return the number of cities which meet this criteria."
                               }
                         ],
                         "hierarchies": [

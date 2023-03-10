@@ -480,7 +480,8 @@
                                     "name": "CurrentRole(Sales Person)",
                                     "expression": "\"Michael\"",
                                     "lineageTag": "324e6b70-5fc6-4fb1-92c3-62af00107053",
-                                    "dataType": "string"
+                                    "dataType": "string",
+                                    "description": "=\n\nThe calculation \"Michael\" is likely referring to a measure in DAX that calculates the value of something for the person \u201cMichael\u201d. This could be anything from a count of the number of items related to Michael in a data set, or a sum of a total associated with Michael."
                               }
                         ],
                         "annotations": [

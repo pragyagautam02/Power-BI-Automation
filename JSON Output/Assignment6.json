@@ -361,7 +361,8 @@
                                                 "name": "PBI_FormatHint",
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation sums the total sales for the current month, up to the current date. It does this by summing the Sales column from a Financial Data table, and then applying the DatesMTD filter to only include sales that have happened this month."
                               },
                               {
                                     "name": "SalesQTD",
@@ -374,7 +375,8 @@
                                                 "name": "PBI_FormatHint",
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation sums the total sales within a given quarter, relative to a given date. It looks at the sales data in FinancialData and finds the total sales within a quarter of the date specified in the same table."
                               },
                               {
                                     "name": "SalesYTD",
@@ -387,7 +389,8 @@
                                                 "name": "PBI_FormatHint",
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation returns the total sales from the beginning of the calendar year until the current date of the FinancialData table. It does this by summing up values from the Sales column for all dates up to the current date in the FinancialData table."
                               },
                               {
                                     "name": "Previous Month Sales MTD",
@@ -404,7 +407,8 @@
                                                 "name": "PBI_ChangedProperties",
                                                 "value": "[\"FormatString\"]"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation provides a sum of the sales in FinancialData for the same month one year ago. It uses the function ParallelPeriod to determine the month one year ago and then adds up all the sales in FinancialData for that month."
                               },
                               {
                                     "name": "Previous Quarter Sales QTD",
@@ -421,7 +425,8 @@
                                                 "name": "PBI_ChangedProperties",
                                                 "value": "[\"FormatString\"]"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation sums up the total sales from the previous quarter until today in the current year. This allows a business to compare year-over-year sales performance."
                               },
                               {
                                     "name": "Month(%)",
@@ -434,7 +439,8 @@
                                                 "name": "PBI_ChangedProperties",
                                                 "value": "[\"FormatString\"]"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation compares the total sales from the current month to the same period of the prior month on a percentage basis. It gives you the percentage change of sales month over month."
                               },
                               {
                                     "name": "Previous Year Current Month Sales",
@@ -451,7 +457,8 @@
                                                 "name": "PBI_ChangedProperties",
                                                 "value": "[\"FormatString\"]"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation is calculating the total sales for the same period last year. It is doing this by looking for the date from the same period last year, and then summing the total sales from that date onward."
                               },
                               {
                                     "name": "First Half Year Sales",
@@ -464,7 +471,8 @@
                                                 "name": "PBI_FormatHint",
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
-                                    ]
+                                    ],
+                                    "description": "This calculation is adding up the totals of all sales from the FinancialData table from between the dates of January 1, 2014 and June 31, 2014."
                               }
                         ],
                         "annotations": [
