@@ -2031,7 +2031,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation is adding up the total derived line total of the Sales SalesOrderDetail table. This derived line total is the total amount (price times quantity) of each item in each sales order. This calculation is essentially totaling the sales amounts of each sales order."
+                                    "description": "This calculation is adding up the line totals of all sales orders in the Sales SalesOrderDetail table. In other words, it is the total of all sales amounts in the Sales SalesOrderDetail table."
                               }
                         ],
                         "annotations": [

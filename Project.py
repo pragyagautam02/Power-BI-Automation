@@ -21,7 +21,7 @@ from xlwt import Pattern
 import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 ## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
@@ -74,8 +74,7 @@ def xls_extract(data, file, base_file_name, json_path):
                         max_length = len(str(cell.value))
                 except:
                     pass
-                adjusted_width = (
-                                             max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+                adjusted_width = (max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
                 ws.column_dimensions[column_cells[0].column_letter].width = adjusted_width
 
         # Wrap text in the cells
@@ -119,12 +118,21 @@ def xls_extract(data, file, base_file_name, json_path):
                     else:
                         TQuery = "No Query"
 
-                    idx = 2
+                    idx = -1
                     for i1 in range(2, len(List_source)):
                         if len(List_source[i1]) > 5 and List_source[i1][4] == '#':
                             idx = i1
                             break
-                    Tmodification = '\n\n'.join(List_source[idx:])
+                    Tmodification = ""
+                    if idx==-1:
+                        Tmodification = "No Modification"
+                    else:
+                        # Tmodification = '\n\n'.join(List_source[idx:-2])
+                        pr = 1
+                        for id in range(idx, len(List_source)-2):
+                            p1 = List_source[id].split("    ")[1]
+                            Tmodification += str(pr) + ". " + p1 + '\n\n'
+                            pr += 1
                     source.append([i, name, Ttype, TSource, TQuery, Tmodification])
 
         i += 1
@@ -157,8 +165,7 @@ def xls_extract(data, file, base_file_name, json_path):
                         max_length = len(str(cell.value))
                 except:
                     pass
-            adjusted_width = (
-                                         max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+            adjusted_width = (max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
             source.column_dimensions[column_cells[0].column_letter].width = adjusted_width
 
             # Wrap text in the cells
@@ -199,8 +206,7 @@ def xls_extract(data, file, base_file_name, json_path):
                 else:
                     a = 'Many to one (*:1)'
 
-                if (cnt1 == 1): relation.append(
-                    ['From Table', 'From Column', 'To Table', 'To Column', 'State', 'Direction', 'Cardinality'])
+                if (cnt1 == 1): relation.append(['From Table', 'From Column', 'To Table', 'To Column', 'State', 'Direction', 'Cardinality'])
                 relation.append([t['fromTable'], t['fromColumn'], t['toTable'], t['toColumn'], t['state'], d, a])
 
         if (cnt1 >= 1):
@@ -233,8 +239,7 @@ def xls_extract(data, file, base_file_name, json_path):
                             max_length = len(str(cell.value))
                     except:
                         pass
-                    adjusted_width = (
-                                                 max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+                    adjusted_width = (max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
                     relation.column_dimensions[column_cells[0].column_letter].width = adjusted_width
 
             # Wrap text in the cells
@@ -252,8 +257,7 @@ def xls_extract(data, file, base_file_name, json_path):
                         max_length = len(str(cell.value))
                 except:
                     pass
-            adjusted_width = (
-                                         max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
+            adjusted_width = (max_length + 2) * 1.2  # Add some extra padding and multiply by a factor to account for different fonts and styles
             relation.column_dimensions[column_cells[0].column_letter].width = adjusted_width
 
         # Wrap text in the cells
