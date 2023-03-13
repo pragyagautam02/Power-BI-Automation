@@ -21,7 +21,7 @@ from xlwt import Pattern
 import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 ## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ def xls_extract(data, file, base_file_name, json_path):
     source = wb.create_sheet('Source Information')
     i = 0
     if 'tables' in data['model']:
-        source.append(['Table No', 'Table Name', 'Table Type', 'Table Source','Original Table Name', 'Table Query', 'Modification'])
+        source.append(['Table No', 'Table Name', 'Table Type', 'Table Source','Original Table Name', 'Table Query', 'Modification','Modification Description'])
 
         for t in data['model']['tables']:
             if 'partitions' in t:
@@ -109,29 +109,33 @@ def xls_extract(data, file, base_file_name, json_path):
                         TSource = p[st: ed + 1]
                         if "Query=" in TSource:
                             TSource = TSource.split("[Query")[0]
+                        if "Delimiter=" in TSource:
+                            TSource=TSource.split("),[Delimiter")[0]
                     else:
                         TSource = List_source[2]
 
                     otname = ""
                     if "Query=" in p:
                         otname = p.split("FROM")[1].split("#")[0]
+                        otname = otname.replace("(lf)", "")
                         # print(TName)
                     elif "Sql." in p:
                         otname = List_source[2].split("=")[0].strip()
                         # print(TName)
                     elif "Excel." in p:
                         otname = List_source[2].split("=")[0].strip()
+                        otname = otname.replace("#", "")
                         # print(TName)
                     elif "Dataflows" in p:
                         otname = List_source[5].split("=")[0].split("\"")[1].strip()
                         # print(TName)
                     else:
                         otname = name
-                    # print(otname)
 
                     TQuery = ""
                     if "Query=" in p:
                         TQuery = p.split("Query=")[1]
+                        TQuery = TQuery.replace("#(lf)", " ")
                     else:
                         TQuery = "No Query"
 
@@ -141,6 +145,7 @@ def xls_extract(data, file, base_file_name, json_path):
                             idx = i1
                             break
                     Tmodification = ""
+                    completion = "No Description"
                     if idx==-1:
                         Tmodification = "No Modification"
                     else:
@@ -150,10 +155,21 @@ def xls_extract(data, file, base_file_name, json_path):
                             p1 = List_source[id].split("    ")[1]
                             Tmodification += str(pr) + ". " + p1 + '\n\n'
                             pr += 1
-                    source.append([i, name, Ttype, TSource, otname, TQuery, Tmodification])
+                        prompt = " ".join(List_source[2:])
+                        prompt = "Explain this in normal terms: " + prompt
+                        #print(prompt)
+                        completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=2048)
+                        #print(completion)
+
+                    t = ""
+                    if completion != 'No Description':
+                        t = completion.choices[0]['text'].strip()
+                    else:
+                        t = completion
+                    source.append([i, name, Ttype, TSource, otname, TQuery, Tmodification,t])
 
         i += 1
-        table = Table(displayName="Source", ref="A1:G" + str(i))
+        table = Table(displayName="Source", ref="A1:H" + str(i))
         source.add_table(table)
 
         # Apply some style to the table
@@ -172,6 +188,7 @@ def xls_extract(data, file, base_file_name, json_path):
         source.column_dimensions["E"].width = 20
         source.column_dimensions["F"].width = 50
         source.column_dimensions["G"].width = 80
+        source.column_dimensions["H"].width = 80
     else:
         source.append(['No Source present in this file'])
         for column_cells in source.columns:
@@ -365,13 +382,19 @@ def json_extract(file):
 
 
 ## Main ----------------------------------------------------------------------------------------------------------------------------------------------------
-print("Do you want to select file or folder\n1.File\n2.Folder")
+print("Do you want to select file or folder\n1. File\n2. Multiple Files\n3. Folder")
 op = int(input("\nEnter Option : "))
 
 if (op == 1):
     file = filedialog.askopenfilename(title="Select file")
+    print("Currently Processing {" + str(Path(file).stem) + "}...")
     json_extract(file)
-elif (op == 2):
+elif(op == 2):
+    files = filedialog.askopenfilenames(title="Select files")
+    for f in files:
+        print("Currently Processing {" + str(Path(f).stem) + "}...")
+        json_extract(f)
+elif(op == 3):
     ## opening file dialog to select folder
     folder = askdirectory(title="Select folder")
     for f in os.listdir(folder):

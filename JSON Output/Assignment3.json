@@ -481,7 +481,7 @@
                                     "expression": "\"Michael\"",
                                     "lineageTag": "324e6b70-5fc6-4fb1-92c3-62af00107053",
                                     "dataType": "string",
-                                    "description": "Model[Daily Profit]=CALCULATE(SUMX(Sales,Sales[Price]*Sales[Quantity])-Cost[Cost],\"Michael\")\n\nThis calculation is determining the daily profit of the \"Michael\" model. The daily profit is calculated by taking the sum of the total price of each"
+                                    "description": "=\n\n\"Michael\" = is a calculation that evaluates whether the value of another calculation, such as a customer name, equals \"Michael\". If it does, then it returns a True or False value depending on the criteria. This calculation is useful in data analysis and can be used to filter out specific values or to"
                               }
                         ],
                         "annotations": [

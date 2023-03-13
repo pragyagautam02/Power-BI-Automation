@@ -353,7 +353,7 @@
                                     "formatString": "0",
                                     "lineageTag": "783001f6-b374-4462-97a0-0557cdfff5ae",
                                     "dataType": "int64",
-                                    "description": "DISTINCTCOUNT(LiteracyTable[State]): This calculation is counting the distinct number of states in the LiteracyTable. This calculation is useful for finding out how many different states have literacy data available in this table."
+                                    "description": "DISTINCTCOUNT(LiteracyTable[State]) is a calculation that counts the number of unique states that appear in the LiteracyTable. This calculation will produce a value which indicates how many individual states are in the LiteracyTable. This can be used to gain insights into the geographical spread of"
                               },
                               {
                                     "name": "Number of Cities",
@@ -361,7 +361,7 @@
                                     "formatString": "0",
                                     "lineageTag": "e4d3a8b6-359f-4906-8928-4dbb10ce15b2",
                                     "dataType": "int64",
-                                    "description": "The calculation counts the number of cities in the LiteracyTable. It filters the table based on the Level column being equal to City, and then counts the distinct entries in the City column."
+                                    "description": "This calculation counts the number of cities that have a LiteracyTable entry with a Level of \"City\". It filters the LiteracyTable based on the Level field and then counts the cities that are displayed in the filter."
                               },
                               {
                                     "name": "Number of UA",
@@ -369,7 +369,7 @@
                                     "formatString": "0",
                                     "lineageTag": "4dea3ee7-2786-43b5-9501-3c4352c0d692",
                                     "dataType": "int64",
-                                    "description": "This calculation counts the number of records in the LiteracyTable table in which the Level column is equal to \"UA\" and the City column contains a value. In other words, it's a way to count the number of cities with a literacy rate at the \"UA\" level."
+                                    "description": "This calculation is checking the count of cities in the LiteracyTable that have a Level of \"UA\". This can be used to evaluate the number of cities in a certain area that have a below average literacy rate."
                               }
                         ],
                         "hierarchies": [
