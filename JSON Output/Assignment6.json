@@ -362,7 +362,7 @@
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
                                     ],
-                                    "description": "This calculation totals up all the sales figures for the current month, using the DATE"
+                                    "description": "This calculation takes the total sales from FinancialData and then totals the sales amounts of the records whose Date fields are within the current month. This result gives the total sales this month."
                               },
                               {
                                     "name": "SalesQTD",
@@ -376,7 +376,7 @@
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
                                     ],
-                                    "description": "This calculation produces the total sum of sales values for this quarter (QTD) by summing the sales values from the FinancialData table for dates that fall within the current quarter. It uses the TOTALQTD and DATESQTD functions to do this."
+                                    "description": "This calculation is used to determine the total sales for the current Quarter To Date (QTD). It takes the sum of the Sales column from a table called FinancialData and uses the DATESQTD function to filter on the Date column from the same table, returning only the records from the current quarter."
                               },
                               {
                                     "name": "SalesYTD",
@@ -390,7 +390,7 @@
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
                                     ],
-                                    "description": "This calculation returns the Total Year-To-Date (YTD) Sales from the FinancialData table, up to the current date. Specifically, it takes the total Sales (sum) from FinancialData, and then compares that to the same date range as the current date (DATESYTD). This will"
+                                    "description": "This calculation is used to calculate the total year-to-date sales from a given dataset containing sale amounts as well as dates associated with each sale. This calculation will sum all sales up until the current date, allowing for a quick and easy way of easily managing and understanding sales performance for the current year."
                               },
                               {
                                     "name": "Previous Month Sales MTD",
@@ -408,7 +408,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation will sum up all of the sales from the previous month compared to the current month-to-date. This will provide a reference point for year over year progress and help understand the reporting period performance."
+                                    "description": "This calculation sums the sales from the current month in the FinancialData table and subtracts the sales from the same month in the previous year. This can be useful to compare performance from one month and year to the next."
                               },
                               {
                                     "name": "Previous Quarter Sales QTD",
@@ -426,7 +426,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation is summing up the total sales from the current year (YTD) in comparison to the preceding quarter. DATESYTD looks at the current year's dates up to the current day and PARALLELPERIOD is using that current day to look one quarter back. The result is"
+                                    "description": "This calculation is the sum of all Sales for the current year-to-date (YTD), excluding the previous quarter. It is used to measure current Sales against a comparable (quarterly) past period."
                               },
                               {
                                     "name": "Month(%)",
@@ -440,7 +440,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation is finding the percent change in Sales MTD between this month and the previous month. It does so by taking the difference between the current month's MTD Sales amount and the previous month's MTD Sales amount, and then dividing that result by the previous month's MTD Sales amount."
+                                    "description": "This calculation compares the current month's sales MTD to the previous month's sales MTD to determine the percentage change month-over-month. This is a useful metric for understanding how much sales have increased or decreased compared to the same period in the previous month."
                               },
                               {
                                     "name": "Previous Year Current Month Sales",
@@ -458,7 +458,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation is finding the total sales of the current year up until today's date, compared to the same period last year. This is helpful if you want to compare sales performance across multiple years."
+                                    "description": "This calculation is used to calculate the year over year sales update. It does so by taking the total sales for the current year (which is the first parameter) and calculating the total sales from the same period last year (which is the second parameter)."
                               },
                               {
                                     "name": "First Half Year Sales",
@@ -472,7 +472,7 @@
                                                 "value": "{\"currencyCulture\":\"en-US\"}"
                                           }
                                     ],
-                                    "description": "This calculation computes the total sales from the FinancialData table between the dates of January 1st, 2014 and June 31st, 2014. This calculation uses the CALCULATE, SUM, and DATESBETWEEN DAX functions."
+                                    "description": "This calculation sums up the total sales between January 1, 2014 and June 30, 2014 from the FinancialData table. This provides the total sales during the 6 month period of the given year."
                               }
                         ],
                         "annotations": [

@@ -21,7 +21,7 @@ from xlwt import Pattern
 import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 ## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
