@@ -201,7 +201,7 @@
                                     "formatString": "0",
                                     "lineageTag": "bbe8aded-6018-43b6-b4b9-1af4593f98b6",
                                     "dataType": "int64",
-                                    "description": "This calculation is looking at the 'LDP Summary' table and it is counting all employee IDs (RES) from that table whose first result is marked as completed. It then returns the number of employee IDs (RES) if there is greater then 0, otherwise it will return 0."
+                                    "description": "This calculation is counting the number of Employee ID values when the First Result is \"Completed\" in a table called LDP Summary. If the result of the count is 0, then the calculation returns 0, otherwise it returns the count of Employee ID values."
                               },
                               {
                                     "name": "Rank",
@@ -209,7 +209,7 @@
                                     "formatString": "0",
                                     "lineageTag": "36daf705-7daf-4fe7-99cf-91290575c748",
                                     "dataType": "int64",
-                                    "description": "This calculation ranks a cross-join of all the unique employee IDs and names found in the 'LDP Summary' table, based on the number of specializations completed. The results are then ordered in descending order, with the highest number of specializations completed at the top."
+                                    "description": "This calculation finds the number of 'Specialization Completed' by each employee and ranks them in descending order. It uses a CROSSJOIN of the 'Employee ID' and 'Name' columns from the 'LDP Summary' table to provide a unique number for each employee and their name. Finally,"
                               },
                               {
                                     "name": "CompletedSpecialized",
@@ -217,7 +217,7 @@
                                     "formatString": "0",
                                     "lineageTag": "a3f77f57-956b-470a-8619-7a1a32cce547",
                                     "dataType": "int64",
-                                    "description": "This calculation counts the number of rows in the 'LDP Summary' table where the 'First Result' column has the value of \"Completed\". This calculation can be useful to determine the number of LDPs with a particular result."
+                                    "description": "This calculation counts the number of rows in the LDP Summary table where the First Result column is equal to Completed. It counts the number of rows where the first result is marked as completed."
                               },
                               {
                                     "name": "Rank of Project Managers",
@@ -225,7 +225,7 @@
                                     "formatString": "0",
                                     "lineageTag": "bc657d83-f9b7-4a86-adc6-00a7a510efb6",
                                     "dataType": "int64",
-                                    "description": "This calculation ranks a list of Project Managers by the number of specializations they have completed in descending order, while ignoring ties and allocating consecutive ranks. An example output of this calculation would look like this: Project Manager A has the highest rank with 4 specializations completed, followed by Project Manager B with"
+                                    "description": "This calculation is used to rank the number of specializations completed by project managers within the 'LDP Summary' table in descending order. The ranking is done in a \"dense\" fashion, meaning that any ties in the number of specializations are given the same rank. The result is the project managers ranked"
                               }
                         ],
                         "annotations": [

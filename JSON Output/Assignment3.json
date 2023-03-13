@@ -481,7 +481,7 @@
                                     "expression": "\"Michael\"",
                                     "lineageTag": "324e6b70-5fc6-4fb1-92c3-62af00107053",
                                     "dataType": "string",
-                                    "description": "=\n\n\"Michael\" = is a calculation that evaluates whether the value of another calculation, such as a customer name, equals \"Michael\". If it does, then it returns a True or False value depending on the criteria. This calculation is useful in data analysis and can be used to filter out specific values or to"
+                                    "description": "= CALCULATE (SUM (FactSales[Revenue]),\n\nThis calculation is finding the total revenue for all sales made by Michael. It is taking the revenue figure from the FactSales table and summing it up to get the total revenue amount for Michael."
                               }
                         ],
                         "annotations": [

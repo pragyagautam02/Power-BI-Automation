@@ -12,7 +12,7 @@ import requests
 import openai
 import os
 import tkinter
-from tkinter import filedialog
+from tkinter import filedialog, Tk
 from tkinter.filedialog import askdirectory
 import xlwt
 from xlwt import Workbook
@@ -21,7 +21,7 @@ from xlwt import Pattern
 import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 ## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
@@ -385,24 +385,36 @@ def json_extract(file):
 print("Do you want to select file or folder\n1. File\n2. Multiple Files\n3. Folder")
 op = int(input("\nEnter Option : "))
 
+root = Tk()
+root.attributes("-topmost", True) # this also works
+root.withdraw()
 if (op == 1):
-    file = filedialog.askopenfilename(title="Select file")
-    print("Currently Processing {" + str(Path(file).stem) + "}...")
-    json_extract(file)
+    try:
+        file = filedialog.askopenfilename(title="Select file", parent=root)
+        json_extract(file)
+        print("Currently Processing {" + str(Path(file).stem) + "}...")
+    except:
+        print("No File Selected.")
 elif(op == 2):
     files = filedialog.askopenfilenames(title="Select files")
-    for f in files:
-        print("Currently Processing {" + str(Path(f).stem) + "}...")
-        json_extract(f)
+    if(files!=""):
+        for f in files:
+            print("Currently Processing {" + str(Path(f).stem) + "}...")
+            json_extract(f)
+    else:
+        print("No Files Selected.")
 elif(op == 3):
     ## opening file dialog to select folder
     folder = askdirectory(title="Select folder")
-    for f in os.listdir(folder):
-        ## searching for file with specific file extension
-        if f.endswith('.pbix'):
-            print("Currently Processing {" + str(f) + "}...")
-            # Create the filepath of particular file
-            file_path = f"{folder}/{f}"
-            json_extract(file_path)
+    if(folder!=""):
+        for f in os.listdir(folder):
+            ## searching for file with specific file extension
+            if f.endswith('.pbix'):
+                print("Currently Processing {" + str(f) + "}...")
+                # Create the filepath of particular file
+                file_path = f"{folder}/{f}"
+                json_extract(file_path)
+    else:
+        print("No Folder Selected.")
 else:
     print("Invalid Input")

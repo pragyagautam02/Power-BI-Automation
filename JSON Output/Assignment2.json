@@ -2031,7 +2031,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation is summing up the totalDerivedLineTotal value of all the items in the Sales SalesOrderDetail table. This is done to get the total amount of sales from all the sales order details, which provides an overall picture of the sales data."
+                                    "description": "This calculation is summing up the total derived line totals from the sales sales order detail table. This number will be a total of the net amount for all of the line items within the sales order."
                               }
                         ],
                         "annotations": [
