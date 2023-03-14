@@ -303,8 +303,11 @@
                                                 "let",
                                                 "    Source = PowerPlatform.Dataflows(null),",
                                                 "    Workspaces = Source{[Id=\"Workspaces\"]}[Data],",
+                                                "    //This is the unique ID for a particular workspace that contains associated data.",
                                                 "    #\"616fac86-19ac-40a2-85bb-15d517e1076f\" = Workspaces{[workspaceId=\"616fac86-19ac-40a2-85bb-15d517e1076f\"]}[Data],",
+                                                "    //The dataflowId \"a025ea09-ff3a-40c4-9033-a14f69c30f0a\" is equal to the id \"616fac86-19ac-40a2-85bb-15d517e1076f\" when combined with the data in brackets.",
                                                 "    #\"a025ea09-ff3a-40c4-9033-a14f69c30f0a\" = #\"616fac86-19ac-40a2-85bb-15d517e1076f\"{[dataflowId=\"a025ea09-ff3a-40c4-9033-a14f69c30f0a\"]}[Data],",
+                                                "    //\"financials (2)\" refers to a specific set of financial data identified by the unique identifier \"a025ea09-ff3a-40c4-9033-a14f69c30f0a\".",
                                                 "    #\"financials (2)_\" = #\"a025ea09-ff3a-40c4-9033-a14f69c30f0a\"{[entity=\"financials (2)\",version=\"\"]}[Data]",
                                                 "in",
                                                 "    #\"financials (2)_\""

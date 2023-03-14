@@ -7,21 +7,14 @@ import json
 import zipfile
 import pathlib
 from pathlib import Path
-from dax_extract import read_data_model_schema
-import requests
 import openai
 import os
-import tkinter
 from tkinter import filedialog, Tk
 from tkinter.filedialog import askdirectory
-import xlwt
-from xlwt import Workbook
-import pandas as pd
-from xlwt import Pattern
 import shutil
 
 ## created open AI key
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 ## function defined to extract the data in xls format ----------------------------------------------------------------------------------------------------------------
@@ -91,10 +84,13 @@ def xls_extract(data, file, base_file_name, json_path):
             if 'partitions' in t:
                 list_partitions = t['partitions']
                 List_source = (list_partitions[0]['source']['expression'])
+                expression = []
                 if List_source[0] == 'let':
+                    expression.append(List_source[0])
                     name = list_partitions[0]['name'].split('-')[0]
                     i += 1
                     p = List_source[1]
+                    expression.append(List_source[1])
                     # print(p)
                     Ttype = p.split("(")[0].split('= ')[1]
 
@@ -110,14 +106,24 @@ def xls_extract(data, file, base_file_name, json_path):
                         if "Query=" in TSource:
                             TSource = TSource.split("[Query")[0]
                         if "Delimiter=" in TSource:
-                            TSource=TSource.split("),[Delimiter")[0]
+                            TSource = TSource.split("),[Delimiter")[0]
                     else:
                         TSource = List_source[2]
+                        # expression.append(List_source[2])
 
                     otname = ""
                     if "Query=" in p:
-                        otname = p.split("FROM")[1].split("#")[0]
-                        otname = otname.replace("(lf)", "")
+                        otname = p.replace("#(lf)", "")
+                        otname = otname.split("FROM")[1]
+                        otname = otname.split("WHERE")[0]
+                        otname = otname.split("INNER JOIN")
+                        n = []
+                        for tname in otname:
+                            if 'ON' in tname:
+                                n.append(tname.split("ON")[0])
+                            else:
+                                n.append(tname)
+                        otname = ",\n".join(n[0:])
                         # print(TName)
                     elif "Sql." in p:
                         otname = List_source[2].split("=")[0].strip()
@@ -144,29 +150,59 @@ def xls_extract(data, file, base_file_name, json_path):
                         if len(List_source[i1]) > 5 and List_source[i1][4] == '#':
                             idx = i1
                             break
+                    for i1 in range(2, idx):
+                        expression.append(List_source[i1])
                     Tmodification = ""
+                    Tdescription = ""
                     completion = "No Description"
-                    if idx==-1:
+                    if idx == -1:
                         Tmodification = "No Modification"
+                        Tdescription = "No Description"
                     else:
                         # Tmodification = '\n\n'.join(List_source[idx:-2])
                         pr = 1
-                        for id in range(idx, len(List_source)-2):
+                        for id in range(idx, len(List_source) - 2):
                             p1 = List_source[id].split("    ")[1]
                             Tmodification += str(pr) + ". " + p1 + '\n\n'
+                            # expression.append(List_source[id])
+                            prompt = "Explain this in normal terms in one sentence : " + p1
+                            completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt,max_tokens=96)
+                            to = completion.choices[0]['text'].strip().replace("\n", "")
+                            Tdescription += str(pr) + ". " + to if completion != 'No Description' else completion
+                            Tdescription += '\n\n'
+                            to = completion.choices[0]['text'].strip().replace("\n", "")
+                            to = "//" + to
+                            # print(t)
+                            if completion != 'No Description':
+                                expression.append("    " + to)
+                            if '\\' not in p1:
+                                expression.append(List_source[id])
                             pr += 1
-                        prompt = " ".join(List_source[2:])
-                        prompt = "Explain this in normal terms: " + prompt
-                        #print(prompt)
-                        completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=2048)
-                        #print(completion)
+                        expression.append(List_source[len(List_source) - 2])
+                        expression.append(List_source[len(List_source) - 1])
+                        # for exp in expression:
+                        #    print(exp)
 
-                    t = ""
-                    if completion != 'No Description':
-                        t = completion.choices[0]['text'].strip()
-                    else:
-                        t = completion
-                    source.append([i, name, Ttype, TSource, otname, TQuery, Tmodification,t])
+                        # for ls in List_source:
+                        #    print(ls)
+                        t['partitions'][0]['source']['expression'] = expression
+                        # print(t['partitions'][0]['source']['expression'])
+
+                        # prompt = " ".join(List_source[2:])
+                        # prompt = "Explain this in normal terms: " + prompt
+                        # print(prompt)
+                        # completion = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=2048)
+                        # print(completion)
+
+                    # t = ""
+                    # if completion != 'No Description':
+                    #    t = completion.choices[0]['text'].strip()
+                    # else:
+                    #    t = completion
+                    source.append([i, name, Ttype, TSource, otname, TQuery, Tmodification, Tdescription])
+
+        with codecs.open(json_path, 'w', 'utf-16-le') as f:
+            json.dump(data, f, indent=4)
 
         i += 1
         table = Table(displayName="Source", ref="A1:H" + str(i))
@@ -185,7 +221,7 @@ def xls_extract(data, file, base_file_name, json_path):
         source.column_dimensions["B"].width = 20
         source.column_dimensions["C"].width = 30
         source.column_dimensions["D"].width = 40
-        source.column_dimensions["E"].width = 20
+        source.column_dimensions["E"].width = 30
         source.column_dimensions["F"].width = 50
         source.column_dimensions["G"].width = 80
         source.column_dimensions["H"].width = 80
@@ -390,16 +426,16 @@ root.attributes("-topmost", True) # this also works
 root.withdraw()
 if (op == 1):
     try:
-        file = filedialog.askopenfilename(title="Select file", parent=root)
+        file = filedialog.askopenfilename(title="Select file")
+        print("Currently Processing {" + str(Path(file).stem) + ".pbix}...")
         json_extract(file)
-        print("Currently Processing {" + str(Path(file).stem) + "}...")
     except:
         print("No File Selected.")
 elif(op == 2):
     files = filedialog.askopenfilenames(title="Select files")
     if(files!=""):
         for f in files:
-            print("Currently Processing {" + str(Path(f).stem) + "}...")
+            print("Currently Processing {" + str(Path(f).stem) + ".pbix}...")
             json_extract(f)
     else:
         print("No Files Selected.")

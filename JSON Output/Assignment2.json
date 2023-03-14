@@ -2007,6 +2007,7 @@
                                                 "let",
                                                 "    Source = Sql.Database(\"MAQN0366\\SQLEXPRESS\", \"AdventureWorks2012\"),",
                                                 "    Sales_SalesOrderDetail = Source{[Schema=\"Sales\",Item=\"SalesOrderDetail\"]}[Data],",
+                                                "    //This statement rounds off the LineTotal column to two decimal places in the Sales_SalesOrderDetail Table.",
                                                 "    #\"Rounded Off\" = Table.TransformColumns(Sales_SalesOrderDetail,{{\"LineTotal\", each Number.Round(_, 2), type number}})",
                                                 "in",
                                                 "    #\"Rounded Off\""
@@ -2031,7 +2032,7 @@
                                                 "value": "[\"FormatString\"]"
                                           }
                                     ],
-                                    "description": "This calculation sums up the total value of all DerivedLineTotal values in the Sales SalesOrderDetail table. This value is the total amount of sales across all line items in the table, and it can be used to measure overall sales performance."
+                                    "description": "This calculation is adding up the total derived line items of a sales transaction. It is taking the individual line items of all sales orders and combining them into a single sum total."
                               }
                         ],
                         "annotations": [

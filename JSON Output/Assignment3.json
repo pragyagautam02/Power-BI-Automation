@@ -136,10 +136,15 @@
                                                 "    Source = Sql.Databases(\"MAQN0366\\SQLEXPRESS\"),",
                                                 "    AdventureWorks2012 = Source{[Name=\"AdventureWorks2012\"]}[Data],",
                                                 "    Sales_SalesPerson = AdventureWorks2012{[Schema=\"Sales\",Item=\"SalesPerson\"]}[Data],",
+                                                "    //This means that the columns \"Bonus\", \"CommissionPct\", \"rowguid\", \"ModifiedDate\", \"HumanResources.Employee\", \"Sales.SalesOrderHeader\", \"Sales.SalesPersonQuotaHistory\", \"Sales.SalesTerritory\", \"Sales.SalesTerritoryHistory\", and \"Sales.Store\" have been removed from a table called \"Sales_SalesPerson\".",
                                                 "    #\"Removed Columns\" = Table.RemoveColumns(Sales_SalesPerson,{\"Bonus\", \"CommissionPct\", \"rowguid\", \"ModifiedDate\", \"HumanResources.Employee\", \"Sales.SalesOrderHeader\", \"Sales.SalesPersonQuotaHistory\", \"Sales.SalesTerritory\", \"Sales.SalesTerritoryHistory\", \"Sales.Store\"}),",
+                                                "    //This formula rounds off the value in the \"SalesLastYear\" column to two decimal places and formats it as a currency.",
                                                 "    #\"Rounded Off\" = Table.TransformColumns(#\"Removed Columns\",{{\"SalesLastYear\", each Number.Round(_, 2), Currency.Type}}),",
+                                                "    //\"Rounded Off1\" is a table transformation that rounds the values in the \"SalesQuota\" column to two decimal places and formats them as currency.",
                                                 "    #\"Rounded Off1\" = Table.TransformColumns(#\"Rounded Off\",{{\"SalesQuota\", each Number.Round(_, 2), Currency.Type}}),",
+                                                "    //This means that all values of a column called \"SalesYTD\" are rounded off to the nearest two decimal places and shown in a currency format.",
                                                 "    #\"Rounded Off2\" = Table.TransformColumns(#\"Rounded Off1\",{{\"SalesYTD\", each Number.Round(_, 2), Currency.Type}}),",
+                                                "    //This changes the data types of the columns \"SalesQuota\", \"SalesYTD\", and \"SalesLastYear\" from the \"Rounded Off2\" table to a currency type.",
                                                 "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Rounded Off2\",{{\"SalesQuota\", Currency.Type}, {\"SalesYTD\", Currency.Type}, {\"SalesLastYear\", Currency.Type}})",
                                                 "in",
                                                 "    #\"Changed Type\""
@@ -467,7 +472,9 @@
                                                 "    Source = Sql.Databases(\"MAQN0366\\SQLEXPRESS\"),",
                                                 "    AdventureWorks2012 = Source{[Name=\"AdventureWorks2012\"]}[Data],",
                                                 "    Person_Person = AdventureWorks2012{[Schema=\"Person\",Item=\"Person\"]}[Data],",
+                                                "    //This statement selects the columns \"BusinessEntityID\" and \"FirstName\" from the \"Person_Person\" table.",
                                                 "    #\"Removed Other Columns\" = Table.SelectColumns(Person_Person,{\"BusinessEntityID\", \"FirstName\"}),",
+                                                "    //This renames the \"FirstName\" column as \"SalesPersonName\" after the other columns have been removed from the table.",
                                                 "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Other Columns\",{{\"FirstName\", \"SalesPersonName\"}})",
                                                 "in",
                                                 "    #\"Renamed Columns\""
@@ -481,7 +488,7 @@
                                     "expression": "\"Michael\"",
                                     "lineageTag": "324e6b70-5fc6-4fb1-92c3-62af00107053",
                                     "dataType": "string",
-                                    "description": "=\n\n\"Michael\" is a single value that can be referenced in a calculation. It is likely a name or term that is used in the calculation to represent some data or value."
+                                    "description": "Michael could be a name referring to a person, or it could refer to a calculation. If it is referring to a calculation, Michael could be the name of a DAX expression or formula used to calculate a result. It could refer to an aggregation of data, such as the sum or average of a set"
                               }
                         ],
                         "annotations": [
@@ -631,7 +638,9 @@
                                                 "    Source = Sql.Databases(\"MAQN0366\\SQLEXPRESS\"),",
                                                 "    AdventureWorks2012 = Source{[Name=\"AdventureWorks2012\"]}[Data],",
                                                 "    Sales_SalesTerritory = AdventureWorks2012{[Schema=\"Sales\",Item=\"SalesTerritory\"]}[Data],",
+                                                "    //The table has been changed to remove any columns except those specified (TerritoryID, Name, CountryRegionCode, Group, SalesYTD, SalesLastYear).",
                                                 "    #\"Removed Other Columns\" = Table.SelectColumns(Sales_SalesTerritory,{\"TerritoryID\", \"Name\", \"CountryRegionCode\", \"Group\", \"SalesYTD\", \"SalesLastYear\"}),",
+                                                "    //This renames the columns of the table after removing the other columns, so that the new names are \"TerritoryName\", \"TerritoryCode\" and \"TerritoryGroup\".",
                                                 "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Other Columns\",{{\"Name\", \"TerritoryName\"}, {\"CountryRegionCode\", \"TerritoryCode\"}, {\"Group\", \"TerritoryGroup\"}})",
                                                 "in",
                                                 "    #\"Renamed Columns\""

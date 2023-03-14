@@ -187,6 +187,7 @@
                                                 "let",
                                                 "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\MAQ\\Desktop\\Pragya_EMPN0366\\LDP Summary.xlsx\"), null, true),",
                                                 "    Table1_Table = Source{[Item=\"Table1\",Kind=\"Table\"]}[Data],",
+                                                "    //This sentence is changing the data types of various columns in Table1_Table to text, Int64, number, or any.",
                                                 "    #\"Changed Type\" = Table.TransformColumnTypes(Table1_Table,{{\"Name\", type text}, {\"Employee ID\", type text}, {\"Project Manager\", type text}, {\"Specialization Name\", type text}, {\"Completion Or Target Date\", Int64.Type}, {\"Is LDP Goal\", type text}, {\"LDP Completion Risk\", type any}, {\"SpecializationPercentage\", type number}, {\"First Result\", type text}})",
                                                 "in",
                                                 "    #\"Changed Type\""
@@ -201,7 +202,7 @@
                                     "formatString": "0",
                                     "lineageTag": "bbe8aded-6018-43b6-b4b9-1af4593f98b6",
                                     "dataType": "int64",
-                                    "description": "This calculation is counting the number of unique employee IDs from a table called 'LDP Summary' with the filter that the \"First Result\" value is \"Completed\". After the count is taken, it is returned as 0 if the result is 0, or otherwise the counted number is returned."
+                                    "description": "This calculation counts how many 'Completed' first results are on the LDP Summary table. It will return those counted results. If the number of completed first results is 0, then it will return 0."
                               },
                               {
                                     "name": "Rank",
@@ -209,7 +210,7 @@
                                     "formatString": "0",
                                     "lineageTag": "36daf705-7daf-4fe7-99cf-91290575c748",
                                     "dataType": "int64",
-                                    "description": "This calculation ranks the employees by the number of specializations they completed. It looks at all Employee ID's and Names in the LDP Summary table, and then ranks them in descending order based on how many specializations they completed."
+                                    "description": "This calculation is used to rank each employee's number of specializations completed. It starts by creating a unique combination of each employee ID and name in the table 'LDP Summary', and then ranks the entries in descending order according to the number of specializations completed by each employee."
                               },
                               {
                                     "name": "CompletedSpecialized",
@@ -217,7 +218,7 @@
                                     "formatString": "0",
                                     "lineageTag": "a3f77f57-956b-470a-8619-7a1a32cce547",
                                     "dataType": "int64",
-                                    "description": "This calculation is counting the number of rows in the 'LDP Summary' table that have a 'First Result' value of \"Completed\". It can be used to answer questions like how many LDPs have been completed out of the total."
+                                    "description": "This calculation is counting the number of rows in the 'LDP Summary' table that have a value of 'Completed' in the 'First Result' column. This can be useful in understanding the percentage of jobs in the table that have a status of 'Completed'."
                               },
                               {
                                     "name": "Rank of Project Managers",
@@ -225,7 +226,7 @@
                                     "formatString": "0",
                                     "lineageTag": "bc657d83-f9b7-4a86-adc6-00a7a510efb6",
                                     "dataType": "int64",
-                                    "description": "This calculation is used to rank each project manager based on the number of specializations they have completed. It orders the project managers from highest to lowest number of specializations completed, thus indicating the project managers with the most specializations first. The ranking is done in descending order, with a Dense ranking applied so"
+                                    "description": "This calculation will rank all Project Managers in the 'LDP Summary' table based on the number of specialization completed from highest to lowest, with ties being broken by assigning consecutive numbers. The goal is to identify the Project Managers with the highest number of specialization completed."
                               }
                         ],
                         "annotations": [
@@ -666,6 +667,7 @@
                                                 "let",
                                                 "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\MAQ\\Desktop\\Pragya_EMPN0366\\LDP Course Details.xlsx\"), null, true),",
                                                 "    Table1_Table = Source{[Item=\"Table1\",Kind=\"Table\"]}[Data],",
+                                                "    //This statement changes the data types for multiple columns in a table called Table1_Table to either text or number.",
                                                 "    #\"Changed Type\" = Table.TransformColumnTypes(Table1_Table,{{\"Employee ID\", type text}, {\"Name\", type text}, {\"Specialization Name\", type text}, {\"Course Name\", type text}, {\"Result\", type text}, {\"Sum of Percent\", type number}, {\"Score\", type text}, {\"Completion Date\", type number}, {\"Is LDP Goal\", type text}})",
                                                 "in",
                                                 "    #\"Changed Type\""

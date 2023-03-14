@@ -333,12 +333,19 @@
                                                 "let",
                                                 "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\MAQ\\Downloads\\Problem Set 5\\Problem Set 5\\Problem Set 5\\Literacy.xlsx\"), null, true),",
                                                 "    LiteracyTable_Table = Source{[Item=\"LiteracyTable\",Kind=\"Table\"]}[Data],",
+                                                "    //The function \"Changed Type\" is changing the data types of the columns in the LiteracyTable_Table to integer, text, and number.",
                                                 "    #\"Changed Type\" = Table.TransformColumnTypes(LiteracyTable_Table,{{\"State Code\", Int64.Type}, {\"State Name\", type text}, {\"District Code\", Int64.Type}, {\"Name of Urban Agglomeration/City\", type text}, {\"Level\", type text}, {\"Population \", Int64.Type}, {\"Population(Male)\", Int64.Type}, {\"Population(Female)\", Int64.Type}, {\"0-6 Population\", Int64.Type}, {\"Literates\", Int64.Type}, {\"Literates(Male)\", Int64.Type}, {\"Literates(Female)\", Int64.Type}, {\"Sex Ratio\", Int64.Type}, {\"Child Sex Ratio (0-6 Years\", Int64.Type}, {\"Effective Literacy Rate (7+ Pop)\", type number}, {\"Literacy Rate(Male)\", type number}, {\"Literacy Rate (Female)\", type number}}),",
+                                                "    //It replaces any errors in the changed type table with the value 33 for the State Code column.",
                                                 "    #\"Replaced Errors\" = Table.ReplaceErrorValues(#\"Changed Type\", {{\"State Code\", 33}}),",
+                                                "    //This sentence is saying that the \"Name of Urban Agglomeration/City\" column has been renamed as \"City\".",
                                                 "    #\"Renamed Columns\" = Table.RenameColumns(#\"Replaced Errors\",{{\"Name of Urban Agglomeration/City\", \"City\"}}),",
+                                                "    //It is a way of taking a column from a table, splitting it into multiple columns by a given delimiter (such as a space), and renaming them in a specific way.",
                                                 "    #\"Split Column by Delimiter\" = Table.SplitColumn(#\"Renamed Columns\", \"City\", Splitter.SplitTextByEachDelimiter({\" \"}, QuoteStyle.Csv, false), {\"City.1\", \"City.2\"}),",
+                                                "    //Table.TransformColumnTypes changes the data type of the columns \"City.1\" and \"City.2\" from the Split Column by Delimiter table to text.",
                                                 "    #\"Changed Type1\" = Table.TransformColumnTypes(#\"Split Column by Delimiter\",{{\"City.1\", type text}, {\"City.2\", type text}}),",
+                                                "    //This removes the column called \"City.2\" from the table \"Changed Type1\".",
                                                 "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type1\",{\"City.2\"}),",
+                                                "    //This sentence renames the \"City.1\" and \"State Name\" columns in the \"Removed Columns\" table to \"City\" and \"State\" respectively.",
                                                 "    #\"Renamed Columns1\" = Table.RenameColumns(#\"Removed Columns\",{{\"City.1\", \"City\"}, {\"State Name\", \"State\"}})",
                                                 "in",
                                                 "    #\"Renamed Columns1\""
@@ -353,7 +360,7 @@
                                     "formatString": "0",
                                     "lineageTag": "783001f6-b374-4462-97a0-0557cdfff5ae",
                                     "dataType": "int64",
-                                    "description": "This calculation is returning the number of distinct States in the 'LiteracyTable.' This calculation will count each State only once so if the same State appears multiple times in the data, it is only counted once. This can be useful for analyzing literacy statistics across the United States."
+                                    "description": "DISTINCTCOUNT(LiteracyTable[State]) is a calculation that gives the number of distinct states present in the LiteracyTable. This calculation will give the distinct number of states, without counting any duplicate states that may be present. This calculation can help the business to understand the number of states"
                               },
                               {
                                     "name": "Number of Cities",
@@ -361,7 +368,7 @@
                                     "formatString": "0",
                                     "lineageTag": "e4d3a8b6-359f-4906-8928-4dbb10ce15b2",
                                     "dataType": "int64",
-                                    "description": "This calculation counts the number of cities within a data table called LiteracyTable. The number of cities counted will only count those with a Level value of \"City\"."
+                                    "description": "This calculation returns the total count of distinct cities for which literacy data exists in the LiteracyTable in Power BI. It filters the table for level \"City\" and counts all of the unique cities present."
                               },
                               {
                                     "name": "Number of UA",
@@ -369,7 +376,7 @@
                                     "formatString": "0",
                                     "lineageTag": "4dea3ee7-2786-43b5-9501-3c4352c0d692",
                                     "dataType": "int64",
-                                    "description": "This calculation is counting the number of cities in the LiteracyTable that have a Level value of \"UA\". The FILTER function is used to narrow down the table to rows that have a Level value of \"UA\". The COUNTAX function is then used to count the number of cities that are present in"
+                                    "description": "This calculation counts how many cities have a literacy rate at the \"UA\" level in the LiteracyTable. This can give insight into how many cities are at a certain educational level, which can be useful in determining how much money should be allocated to certain schools or whether certain educational programs are being effective."
                               }
                         ],
                         "hierarchies": [
